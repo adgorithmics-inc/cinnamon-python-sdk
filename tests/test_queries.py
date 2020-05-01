@@ -1,5 +1,6 @@
 import os
 import unittest
+import datetime
 
 from cinnamon_sdk import (
     Cinnamon,
@@ -11,6 +12,9 @@ from cinnamon_sdk import (
     FilterOperator,
     FilterInput,
     VendorConnectionFields,
+    VendorFields,
+    SortInput,
+    SORT_ORDER,
 )
 
 
@@ -38,14 +42,14 @@ class TestQueries(unittest.TestCase):
         if self.organization:
             self.cinnamon.delete_organization(id=self.organization.id)
 
-    # def test_single_object_and_delete(self):
-    #     vendor = self.cinnamon.create_vendor(
-    #         input=VendorInput(name="CinnaPy Vendor", marketplace_id=self.marketplace.id)
-    #     )
-    #     vendor_queried = self.cinnamon.vendor(id=vendor.id)
-    #     self.assertEqual(vendor.id, vendor_queried.id)
+    def test_single_object_and_delete(self):
+        vendor = self.cinnamon.create_vendor(
+            input=VendorInput(name="CinnaPy Vendor", marketplace_id=self.marketplace.id)
+        )
+        vendor_queried = self.cinnamon.vendor(id=vendor.id)
+        self.assertEqual(vendor.id, vendor_queried.id)
 
-    def test_paging(self):
+    def test_paging_and_filtering(self):
         vendors = [
             self.cinnamon.create_vendor(
                 input=VendorInput(
@@ -69,7 +73,40 @@ class TestQueries(unittest.TestCase):
         self.assertEqual(len(vendor_ids), len(verified_vendor_ids))
 
     def test_sorting(self):
-        pass
+        vendor = self.cinnamon.create_vendor(
+            input=VendorInput(
+                name="CinnaPy Vendor 1", marketplace_id=self.marketplace.id
+            )
+        )
+        vendor_2 = self.cinnamon.create_vendor(
+            input=VendorInput(
+                name="CinnaPy Vendor 2", marketplace_id=self.marketplace.id
+            )
+        )
+        queried_vendors = [
+            v.id
+            for v in self.cinnamon.vendors(
+                filter=FilterInput("id", FilterOperator.IN, [vendor.id, vendor_2.id]),
+                sort=SortInput("name", SORT_ORDER.DESC),
+            )
+        ]
+        self.assertEqual([vendor_2.id, vendor.id], queried_vendors)
 
     def test_nested(self):
-        pass
+        vendor = self.cinnamon.create_vendor(
+            input=VendorInput(
+                name="CinnaPy Vendor 1", marketplace_id=self.marketplace.id
+            )
+        )
+        queried_vendor = self.cinnamon.vendor(
+            vendor.id, fields=[VendorFields.marketplace.organization.name]
+        )
+        self.assertEqual(
+            queried_vendor.marketplace.organization.name, self.organization.name
+        )
+
+    def test_scalar_decodes(self):
+        vendor = self.cinnamon.create_vendor(
+            input=VendorInput(name="CinnaPy Vendor", marketplace_id=self.marketplace.id)
+        )
+        self.assertIsInstance(vendor.creation_date, datetime.datetime)

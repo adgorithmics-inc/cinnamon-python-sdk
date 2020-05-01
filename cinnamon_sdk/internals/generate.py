@@ -483,8 +483,12 @@ class PythonCodeGenerator:
                 query_builder_arg_dict += f'"{arg.python_name}": {arg.python_name},'
             query_builder_arg_dict += "}"
 
+            return_hint = f"objects.{query.return_type.api_kind_name}"
+            if query.is_paged:
+                return_hint = f"Iterable[{return_hint}]"
+
             function_code = [
-                f"def {query.python_name}(self, {', '.join(args)}) -> objects.{query.return_type.api_kind_name}:",
+                f"def {query.python_name}(self, {', '.join(args)}) -> : {return_hint}",
                 f"    query_args = self._query_builder(",
                 f"        {repr(query.query_type)},",
                 f"        {repr(query.name)},",

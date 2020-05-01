@@ -53,7 +53,7 @@ with open(enums_filename, mode="w") as f:
 print("Updating cinnamon.py...")
 functions_filename = os.path.join("cinnamon_sdk", "cinnamon.py")
 with open(functions_filename, mode="w") as f:
-    f.write("from typing import Union, List\n")
+    f.write("from typing import Union, List, Iterable\n")
     f.write("from datetime import datetime\n")
     f.write("from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField\n")
     f.write("from .internals.constants import CinnamonUndefined\n")

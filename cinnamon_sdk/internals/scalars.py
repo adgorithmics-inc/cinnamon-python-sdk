@@ -1,7 +1,6 @@
 import datetime
 import pytz
 import dateutil.parser
-import enum
 
 from .base_classes import BaseCinnamonScalar
 
@@ -54,19 +53,6 @@ class JSONObject(BaseCinnamonScalar):
         return python_value
 
 
-class FilterOperator(enum.Enum):
-    EQUALS = "EQUALS"
-    NOT_EQUALS = "NOT_EQUALS"
-    CONTAINS = "CONTAINS"
-    ICONTAINS = "ICONTAINS"
-    GT = "GT"
-    GTE = "GTE"
-    LT = "LT"
-    LTE = "LTE"
-    IN = "IN"
-    IS_NULL = "IS NULL"
-
-
 class FilterInput(BaseCinnamonScalar, dict):
     type_hint = "dict"
 
@@ -77,11 +63,6 @@ class FilterInput(BaseCinnamonScalar, dict):
     @staticmethod
     def encode(python_value: dict) -> dict:
         return python_value
-
-    def __init__(self, field: str, operator: FilterOperator, value: any):
-        self["field"] = field
-        self["operator"] = operator.value
-        self["value"] = value
 
 
 class String(BaseCinnamonScalar):

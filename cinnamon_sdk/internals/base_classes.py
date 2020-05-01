@@ -3,7 +3,7 @@ import pydash
 import json
 import requests
 import copy
-from typing import Union, List, Any
+from typing import Union, List, Any, Iterable
 from enum import Enum
 from requests import Response
 
@@ -13,6 +13,7 @@ from .constants import (
     GraphQLCodes,
     GraphQLRetryableCodes,
     CONNECTION_EXCEPTIONS,
+    FilterInput,
 )
 from .exceptions import CinnamonException
 
@@ -40,7 +41,7 @@ class BaseCinnamonObject:
                 continue
             setattr(self, field.python_name, field.get_python_value(api_value))
 
-    def __str__(self):
+    def __str__(self) -> str:
         s = self.__class__.__name__
         if getattr(self, "id", None):
             s += f" {self.id}"
@@ -61,13 +62,13 @@ class BaseCinnamonField:
     obj: Union[BaseCinnamonObject, None] = None
 
     @classmethod
-    def __str__(cls):
+    def __str__(cls) -> str:
         return (
             f"<{cls.__name__} - {cls.api_name} - {cls.api_kind} - {cls.api_kind_name}>"
         )
 
     @classmethod
-    def __repr__(cls):
+    def __repr__(cls) -> str:
         return str(cls)
 
     @classmethod
@@ -111,6 +112,8 @@ class BaseCinnamonInput:
                 continue
             if value == CinnamonUndefined:
                 continue
+            if isinstance(value, Enum):
+                value = value.value
             api_field = getattr(self._FIELDS, python_key, None)
             if not api_field:
                 continue
@@ -145,7 +148,7 @@ class BaseCinnamon:
         self.refresh_token = refresh_token
         self.retry_count = 0
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"<{self.__class__.__name__} {self.url}>"
 
     @staticmethod
@@ -155,8 +158,23 @@ class BaseCinnamon:
     def _network_request(self, url: str, headers: dict, body: str) -> Response:
         raise NotImplementedError
 
-    def _refresh_login(self):
-        pass
+    def _refresh_login(self) -> None:
+        result = self._api(
+            """
+            mutation($input: RefreshTokenInput!) {
+                refreshLogin(input: $input) {
+                    token
+                    refreshToken
+                }
+            }
+            """
+        )["data"]["refreshLogin"]
+
+        if result["token"] and result["refreshToken"]:
+            self.token = result.token
+            self.refresh_token = result.refresh_token
+
+        return result
 
     def _api(
         self,
@@ -267,7 +285,7 @@ class BaseCinnamon:
             arg_type = getattr(argument_legend, arg_name)
             query_vars.append(f"${arg_type.api_name}: {arg_type.api_kind_name}!")
             call_vars.append(f"{arg_type.api_name}: ${arg_type.api_name}")
-            if isinstance(arg_value, BaseCinnamonInput):
+            if isinstance(arg_value, (BaseCinnamonInput, FilterInput)):
                 encoded_args[arg_name] = arg_value.api_dict
             else:
                 encoded_args[arg_name] = arg_value
@@ -292,7 +310,7 @@ class BaseCinnamon:
         self.retry_count = 0
         return self._api(query, variables, headers, token)
 
-    def login(self, email, password):
+    def login(self, email, password) -> dict:
         result = self.api(
             query=str(
                 "mutation($input: UserLoginInput!) {"
@@ -314,7 +332,7 @@ class BaseCinnamon:
         headers: dict,
         token: str,
         query_name: str,
-    ):
+    ) -> Iterable:
         page = base_obj(
             self.api(headers=headers, token=token, **query_args)["data"][query_name]
         )

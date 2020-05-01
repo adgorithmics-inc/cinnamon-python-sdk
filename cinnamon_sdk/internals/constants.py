@@ -1,5 +1,8 @@
+import typing
 import requests
 from enum import Enum
+
+VENDOR_TOKEN_LENGTH = 60
 
 CONNECTION_EXCEPTIONS = (
     requests.exceptions.SSLError,
@@ -46,20 +49,49 @@ class GraphQLRetryableCodes(Enum):
 
 class CinnamonUndefined:
     @classmethod
-    def __nonzero__(cls):
+    def __nonzero__(cls) -> bool:
         return False
 
     @classmethod
-    def __bool__(cls):
+    def __bool__(cls) -> bool:
         return False
 
     @classmethod
-    def __str__(cls):
+    def __str__(cls) -> bool:
         return cls.__name__
 
     @classmethod
-    def __repr__(cls):
+    def __repr__(cls) -> bool:
         return cls.__name__
 
 
-VENDOR_TOKEN_LENGTH = 60
+class FilterOperator(Enum):
+    EQUALS = "EQUALS"
+    NOT_EQUALS = "NOT_EQUALS"
+    CONTAINS = "CONTAINS"
+    ICONTAINS = "ICONTAINS"
+    GT = "GT"
+    GTE = "GTE"
+    LT = "LT"
+    LTE = "LTE"
+    IN = "IN"
+    IS_NULL = "IS NULL"
+
+
+class FilterInput:
+    field: str
+    operator: FilterOperator
+    value: typing.Any
+
+    def __init__(self, field: str, operator: FilterOperator, value: any) -> None:
+        self.field = field
+        self.operator = operator
+        self.value = value
+
+    @property
+    def api_dict(self) -> dict:
+        return {
+            "field": self.field,
+            "operator": self.operator.value,
+            "value": self.value,
+        }
