@@ -145,11 +145,41 @@ class CatalogImportInput(BaseCinnamonInput):
             python_name = "remote_id"
             scalar = scalars.String
 
+        class product_source(BaseCinnamonField):
+            api_name = "productSource"
+            api_kind = "ENUM"
+            api_kind_name = "PRODUCT_SOURCE"
+            python_iterable = None
+            python_name = "product_source"
+
+        class vendor_id(BaseCinnamonField):
+            api_name = "vendorId"
+            api_kind = "SCALAR"
+            api_kind_name = "ObjectId"
+            python_iterable = None
+            python_name = "vendor_id"
+            scalar = scalars.ObjectId
+
     media_channel_id: str
     remote_id: str
+    product_source: Union[enums.PRODUCT_SOURCE, None, CinnamonUndefined]
+    vendor_id: Union[str, None, CinnamonUndefined]
 
-    def __init__(self, media_channel_id: str, remote_id: str) -> None:
-        super().__init__(media_channel_id=media_channel_id, remote_id=remote_id)
+    def __init__(
+        self,
+        media_channel_id: str,
+        remote_id: str,
+        product_source: Union[
+            enums.PRODUCT_SOURCE, None, CinnamonUndefined
+        ] = CinnamonUndefined,
+        vendor_id: Union[str, None, CinnamonUndefined] = CinnamonUndefined,
+    ) -> None:
+        super().__init__(
+            media_channel_id=media_channel_id,
+            remote_id=remote_id,
+            product_source=product_source,
+            vendor_id=vendor_id,
+        )
 
 
 class CatalogUpdateInput(BaseCinnamonInput):
@@ -179,6 +209,26 @@ class CatalogUpdateInput(BaseCinnamonInput):
         name: Union[str, None, CinnamonUndefined] = CinnamonUndefined,
     ) -> None:
         super().__init__(external_event_source_ids=external_event_source_ids, name=name)
+
+
+class CatalogSyncInput(BaseCinnamonInput):
+    class _FIELDS:
+        class reconcile_state(BaseCinnamonField):
+            api_name = "reconcileState"
+            api_kind = "ENUM"
+            api_kind_name = "ReconcileStateEnum"
+            python_iterable = None
+            python_name = "reconcile_state"
+
+    reconcile_state: Union[enums.ReconcileStateEnum, None, CinnamonUndefined]
+
+    def __init__(
+        self,
+        reconcile_state: Union[
+            enums.ReconcileStateEnum, None, CinnamonUndefined
+        ] = CinnamonUndefined,
+    ) -> None:
+        super().__init__(reconcile_state=reconcile_state)
 
 
 class CreativeFontCreateInput(BaseCinnamonInput):
@@ -1437,6 +1487,7 @@ __all__ = [
     "CatalogCreateInput",
     "CatalogImportInput",
     "CatalogUpdateInput",
+    "CatalogSyncInput",
     "CreativeFontCreateInput",
     "CreativeFontUpdateInput",
     "CreativeImageCreateInput",

@@ -110,3 +110,7 @@ class TestQueries(unittest.TestCase):
             input=VendorInput(name="CinnaPy Vendor", marketplace_id=self.marketplace.id)
         )
         self.assertIsInstance(vendor.creation_date, datetime.datetime)
+
+    def test_query_with_blank_results(self):
+        # This test should not raise an exception
+        [v for v in self.cinnamon.creative_templates()]

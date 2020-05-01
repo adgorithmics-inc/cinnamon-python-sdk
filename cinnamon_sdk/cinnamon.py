@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import Union, List, Iterable
 from datetime import datetime
 from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField
 from .internals.constants import CinnamonUndefined
@@ -586,13 +586,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_catalog:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "CatalogUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -600,6 +593,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "CatalogUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_catalogs:
         class input(BaseCinnamonField):
@@ -632,6 +632,31 @@ class _ARGUMENT_LEGENDS:
             python_name = "show_deleted"
             scalar = scalars.Boolean
 
+    class sync_catalog:
+        class id(BaseCinnamonField):
+            api_name = "id"
+            api_kind = "SCALAR"
+            api_kind_name = "ObjectId"
+            python_iterable = None
+            python_name = "id"
+            scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "CatalogSyncInput"
+            python_iterable = None
+            python_name = "input"
+
+    class sync_catalog_products:
+        class id(BaseCinnamonField):
+            api_name = "id"
+            api_kind = "SCALAR"
+            api_kind_name = "ObjectId"
+            python_iterable = None
+            python_name = "id"
+            scalar = scalars.ObjectId
+
     class delete_catalog:
         class id(BaseCinnamonField):
             api_name = "id"
@@ -650,13 +675,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_creative_font:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "CreativeFontUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -664,6 +682,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "CreativeFontUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_creative_fonts:
         class input(BaseCinnamonField):
@@ -714,13 +739,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_creative_image:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "CreativeImageUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -728,6 +746,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "CreativeImageUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_creative_images:
         class input(BaseCinnamonField):
@@ -778,13 +803,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_creative_layer:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "CreativeLayerUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -792,6 +810,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "CreativeLayerUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_creative_layers:
         class input(BaseCinnamonField):
@@ -842,13 +867,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_creative_template:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "CreativeTemplateUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -856,6 +874,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "CreativeTemplateUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_creative_templates:
         class input(BaseCinnamonField):
@@ -906,13 +931,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_entitlement:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "EntitlementUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -920,6 +938,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "EntitlementUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_entitlements:
         class input(BaseCinnamonField):
@@ -962,13 +987,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_marketing_campaign:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "MarketingCampaignUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -976,6 +994,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "MarketingCampaignUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_marketing_campaigns:
         class input(BaseCinnamonField):
@@ -1025,14 +1050,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class approve_marketing_campaign:
-        class last_change_date(BaseCinnamonField):
-            api_name = "lastChangeDate"
-            api_kind = "SCALAR"
-            api_kind_name = "DateISO"
-            python_iterable = None
-            python_name = "last_change_date"
-            scalar = scalars.DateISO
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -1040,6 +1057,14 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class last_change_date(BaseCinnamonField):
+            api_name = "lastChangeDate"
+            api_kind = "SCALAR"
+            api_kind_name = "DateISO"
+            python_iterable = None
+            python_name = "last_change_date"
+            scalar = scalars.DateISO
 
     class delete_marketing_campaign:
         class id(BaseCinnamonField):
@@ -1059,13 +1084,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_marketplace:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "MarketplaceUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -1073,6 +1091,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "MarketplaceUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_marketplaces:
         class input(BaseCinnamonField):
@@ -1131,13 +1156,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_media_channel:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "MediaChannelUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -1145,6 +1163,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "MediaChannelUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_media_channels:
         class input(BaseCinnamonField):
@@ -1187,13 +1212,6 @@ class _ARGUMENT_LEGENDS:
             scalar = scalars.ObjectId
 
     class update_notification:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "NotificationUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -1201,6 +1219,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "NotificationUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_notifications:
         class input(BaseCinnamonField):
@@ -1234,13 +1259,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_organization:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "OrganizationUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -1248,6 +1266,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "OrganizationUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_organizations:
         class input(BaseCinnamonField):
@@ -1298,13 +1323,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_product:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "ProductUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -1312,6 +1330,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "ProductUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_products:
         class input(BaseCinnamonField):
@@ -1386,13 +1411,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "input"
 
     class update_vendor:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "VendorUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
         class id(BaseCinnamonField):
             api_name = "id"
             api_kind = "SCALAR"
@@ -1400,6 +1418,13 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
+
+        class input(BaseCinnamonField):
+            api_name = "input"
+            api_kind = "INPUT_OBJECT"
+            api_kind_name = "VendorUpdateInput"
+            python_iterable = None
+            python_name = "input"
 
     class update_vendors:
         class input(BaseCinnamonField):
@@ -1509,7 +1534,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CampaignTemplateConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CampaignTemplateConnection:
+    ) -> Iterable[objects.CampaignTemplateConnection]:
         query_args = self._query_builder(
             "query",
             "campaignTemplates",
@@ -1536,7 +1561,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CampaignTemplateConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CampaignTemplateConnection:
+    ) -> Iterable[objects.CampaignTemplateConnection]:
         query_args = self._query_builder(
             "query",
             "campaignTemplatesWithCurrentGCPX",
@@ -1579,7 +1604,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CatalogConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CatalogConnection:
+    ) -> Iterable[objects.CatalogConnection]:
         query_args = self._query_builder(
             "query",
             "catalogs",
@@ -1625,7 +1650,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CreativeFontConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CreativeFontConnection:
+    ) -> Iterable[objects.CreativeFontConnection]:
         query_args = self._query_builder(
             "query",
             "creativeFonts",
@@ -1671,7 +1696,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CreativeImageConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CreativeImageConnection:
+    ) -> Iterable[objects.CreativeImageConnection]:
         query_args = self._query_builder(
             "query",
             "creativeImages",
@@ -1721,7 +1746,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CreativeLayerConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CreativeLayerConnection:
+    ) -> Iterable[objects.CreativeLayerConnection]:
         query_args = self._query_builder(
             "query",
             "creativeLayers",
@@ -1771,7 +1796,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CreativeTemplateConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CreativeTemplateConnection:
+    ) -> Iterable[objects.CreativeTemplateConnection]:
         query_args = self._query_builder(
             "query",
             "creativeTemplates",
@@ -1818,7 +1843,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.EntitlementConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.EntitlementConnection:
+    ) -> Iterable[objects.EntitlementConnection]:
         query_args = self._query_builder(
             "query",
             "entitlements",
@@ -1862,7 +1887,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.MarketingAdConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.MarketingAdConnection:
+    ) -> Iterable[objects.MarketingAdConnection]:
         query_args = self._query_builder(
             "query",
             "marketingAds",
@@ -1908,7 +1933,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.MarketingCampaignConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.MarketingCampaignConnection:
+    ) -> Iterable[objects.MarketingCampaignConnection]:
         query_args = self._query_builder(
             "query",
             "marketingCampaigns",
@@ -1956,7 +1981,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.MarketplaceConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.MarketplaceConnection:
+    ) -> Iterable[objects.MarketplaceConnection]:
         query_args = self._query_builder(
             "query",
             "marketplaces",
@@ -2015,7 +2040,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.MediaChannelConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.MediaChannelConnection:
+    ) -> Iterable[objects.MediaChannelConnection]:
         query_args = self._query_builder(
             "query",
             "mediaChannels",
@@ -2060,7 +2085,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.NotificationConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.NotificationConnection:
+    ) -> Iterable[objects.NotificationConnection]:
         query_args = self._query_builder(
             "query",
             "notifications",
@@ -2106,7 +2131,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.OrganizationConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.OrganizationConnection:
+    ) -> Iterable[objects.OrganizationConnection]:
         query_args = self._query_builder(
             "query",
             "organizations",
@@ -2145,7 +2170,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.ProductConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.ProductConnection:
+    ) -> Iterable[objects.ProductConnection]:
         query_args = self._query_builder(
             "query",
             "products",
@@ -2183,7 +2208,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.ResultConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.ResultConnection:
+    ) -> Iterable[objects.ResultConnection]:
         query_args = self._query_builder(
             "query",
             "results",
@@ -2222,7 +2247,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.VendorConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.VendorConnection:
+    ) -> Iterable[objects.VendorConnection]:
         query_args = self._query_builder(
             "query",
             "vendors",
@@ -2265,7 +2290,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.VendorTokenConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.VendorTokenConnection:
+    ) -> Iterable[objects.VendorTokenConnection]:
         query_args = self._query_builder(
             "query",
             "vendorTokens",
@@ -2349,8 +2374,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_catalog(
         self,
-        input: inputs.CatalogUpdateInput,
         id: str,
+        input: inputs.CatalogUpdateInput,
         fields: List[
             fields_module.CatalogFields
         ] = fields_module.CatalogFields._default_fields(),
@@ -2361,7 +2386,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateCatalog",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_catalog,
             False,
         )
@@ -2382,7 +2407,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CatalogConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CatalogConnection:
+    ) -> Iterable[objects.CatalogConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateCatalogs",
@@ -2398,6 +2423,53 @@ class Cinnamon(BaseSyncCinnamon):
         )
         return self.iterate_edges(
             objects.CatalogConnection, query_args, headers, token, "updateCatalogs",
+        )
+
+    def sync_catalog(
+        self,
+        id: str,
+        input: Union[
+            inputs.CatalogSyncInput, None, CinnamonUndefined
+        ] = CinnamonUndefined,
+        fields: List[
+            fields_module.CatalogFields
+        ] = fields_module.CatalogFields._default_fields(),
+        headers: Union[dict, None] = None,
+        token: Union[str, None] = None,
+    ) -> objects.Catalog:
+        query_args = self._query_builder(
+            "mutation",
+            "syncCatalog",
+            fields,
+            {"id": id, "input": input,},
+            _ARGUMENT_LEGENDS.sync_catalog,
+            False,
+        )
+        return objects.Catalog(
+            self.api(headers=headers, token=token, **query_args)["data"]["syncCatalog"],
+        )
+
+    def sync_catalog_products(
+        self,
+        id: str,
+        fields: List[
+            fields_module.CatalogFields
+        ] = fields_module.CatalogFields._default_fields(),
+        headers: Union[dict, None] = None,
+        token: Union[str, None] = None,
+    ) -> objects.Catalog:
+        query_args = self._query_builder(
+            "mutation",
+            "syncCatalogProducts",
+            fields,
+            {"id": id,},
+            _ARGUMENT_LEGENDS.sync_catalog_products,
+            False,
+        )
+        return objects.Catalog(
+            self.api(headers=headers, token=token, **query_args)["data"][
+                "syncCatalogProducts"
+            ],
         )
 
     def delete_catalog(
@@ -2448,8 +2520,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_creative_font(
         self,
-        input: inputs.CreativeFontUpdateInput,
         id: str,
+        input: inputs.CreativeFontUpdateInput,
         fields: List[
             fields_module.CreativeFontFields
         ] = fields_module.CreativeFontFields._default_fields(),
@@ -2460,7 +2532,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateCreativeFont",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_creative_font,
             False,
         )
@@ -2481,7 +2553,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CreativeFontConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CreativeFontConnection:
+    ) -> Iterable[objects.CreativeFontConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateCreativeFonts",
@@ -2551,8 +2623,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_creative_image(
         self,
-        input: inputs.CreativeImageUpdateInput,
         id: str,
+        input: inputs.CreativeImageUpdateInput,
         fields: List[
             fields_module.CreativeImageFields
         ] = fields_module.CreativeImageFields._default_fields(),
@@ -2563,7 +2635,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateCreativeImage",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_creative_image,
             False,
         )
@@ -2584,7 +2656,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CreativeImageConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CreativeImageConnection:
+    ) -> Iterable[objects.CreativeImageConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateCreativeImages",
@@ -2654,8 +2726,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_creative_layer(
         self,
-        input: inputs.CreativeLayerUpdateInput,
         id: str,
+        input: inputs.CreativeLayerUpdateInput,
         fields: List[
             fields_module.CreativeLayerFields
         ] = fields_module.CreativeLayerFields._default_fields(),
@@ -2666,7 +2738,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateCreativeLayer",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_creative_layer,
             False,
         )
@@ -2687,7 +2759,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CreativeLayerConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CreativeLayerConnection:
+    ) -> Iterable[objects.CreativeLayerConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateCreativeLayers",
@@ -2757,8 +2829,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_creative_template(
         self,
-        input: inputs.CreativeTemplateUpdateInput,
         id: str,
+        input: inputs.CreativeTemplateUpdateInput,
         fields: List[
             fields_module.CreativeTemplateFields
         ] = fields_module.CreativeTemplateFields._default_fields(),
@@ -2769,7 +2841,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateCreativeTemplate",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_creative_template,
             False,
         )
@@ -2790,7 +2862,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.CreativeTemplateConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.CreativeTemplateConnection:
+    ) -> Iterable[objects.CreativeTemplateConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateCreativeTemplates",
@@ -2860,8 +2932,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_entitlement(
         self,
-        input: inputs.EntitlementUpdateInput,
         id: str,
+        input: inputs.EntitlementUpdateInput,
         fields: List[
             fields_module.EntitlementFields
         ] = fields_module.EntitlementFields._default_fields(),
@@ -2872,7 +2944,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateEntitlement",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_entitlement,
             False,
         )
@@ -2892,7 +2964,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.EntitlementConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.EntitlementConnection:
+    ) -> Iterable[objects.EntitlementConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateEntitlements",
@@ -2957,8 +3029,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_marketing_campaign(
         self,
-        input: inputs.MarketingCampaignUpdateInput,
         id: str,
+        input: inputs.MarketingCampaignUpdateInput,
         fields: List[
             fields_module.MarketingCampaignFields
         ] = fields_module.MarketingCampaignFields._default_fields(),
@@ -2969,7 +3041,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateMarketingCampaign",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_marketing_campaign,
             False,
         )
@@ -2990,7 +3062,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.MarketingCampaignConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.MarketingCampaignConnection:
+    ) -> Iterable[objects.MarketingCampaignConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateMarketingCampaigns",
@@ -3040,8 +3112,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def approve_marketing_campaign(
         self,
-        last_change_date: datetime,
         id: str,
+        last_change_date: datetime,
         fields: List[
             fields_module.MarketingCampaignFields
         ] = fields_module.MarketingCampaignFields._default_fields(),
@@ -3052,7 +3124,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "approveMarketingCampaign",
             fields,
-            {"last_change_date": last_change_date, "id": id,},
+            {"id": id, "last_change_date": last_change_date,},
             _ARGUMENT_LEGENDS.approve_marketing_campaign,
             False,
         )
@@ -3110,8 +3182,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_marketplace(
         self,
-        input: inputs.MarketplaceUpdateInput,
         id: str,
+        input: inputs.MarketplaceUpdateInput,
         fields: List[
             fields_module.MarketplaceFields
         ] = fields_module.MarketplaceFields._default_fields(),
@@ -3122,7 +3194,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateMarketplace",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_marketplace,
             False,
         )
@@ -3143,7 +3215,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.MarketplaceConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.MarketplaceConnection:
+    ) -> Iterable[objects.MarketplaceConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateMarketplaces",
@@ -3236,8 +3308,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_media_channel(
         self,
-        input: inputs.MediaChannelUpdateInput,
         id: str,
+        input: inputs.MediaChannelUpdateInput,
         fields: List[
             fields_module.MediaChannelFields
         ] = fields_module.MediaChannelFields._default_fields(),
@@ -3248,7 +3320,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateMediaChannel",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_media_channel,
             False,
         )
@@ -3269,7 +3341,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.MediaChannelConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.MediaChannelConnection:
+    ) -> Iterable[objects.MediaChannelConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateMediaChannels",
@@ -3316,8 +3388,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_notification(
         self,
-        input: inputs.NotificationUpdateInput,
         id: str,
+        input: inputs.NotificationUpdateInput,
         fields: List[
             fields_module.NotificationFields
         ] = fields_module.NotificationFields._default_fields(),
@@ -3328,7 +3400,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateNotification",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_notification,
             False,
         )
@@ -3348,7 +3420,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.NotificationConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.NotificationConnection:
+    ) -> Iterable[objects.NotificationConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateNotifications",
@@ -3390,8 +3462,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_organization(
         self,
-        input: inputs.OrganizationUpdateInput,
         id: str,
+        input: inputs.OrganizationUpdateInput,
         fields: List[
             fields_module.OrganizationFields
         ] = fields_module.OrganizationFields._default_fields(),
@@ -3402,7 +3474,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateOrganization",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_organization,
             False,
         )
@@ -3423,7 +3495,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.OrganizationConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.OrganizationConnection:
+    ) -> Iterable[objects.OrganizationConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateOrganizations",
@@ -3493,8 +3565,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_product(
         self,
-        input: inputs.ProductUpdateInput,
         id: str,
+        input: inputs.ProductUpdateInput,
         fields: List[
             fields_module.ProductFields
         ] = fields_module.ProductFields._default_fields(),
@@ -3505,7 +3577,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateProduct",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_product,
             False,
         )
@@ -3526,7 +3598,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.ProductConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.ProductConnection:
+    ) -> Iterable[objects.ProductConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateProducts",
@@ -3659,8 +3731,8 @@ class Cinnamon(BaseSyncCinnamon):
 
     def update_vendor(
         self,
-        input: inputs.VendorUpdateInput,
         id: str,
+        input: inputs.VendorUpdateInput,
         fields: List[
             fields_module.VendorFields
         ] = fields_module.VendorFields._default_fields(),
@@ -3671,7 +3743,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mutation",
             "updateVendor",
             fields,
-            {"input": input, "id": id,},
+            {"id": id, "input": input,},
             _ARGUMENT_LEGENDS.update_vendor,
             False,
         )
@@ -3692,7 +3764,7 @@ class Cinnamon(BaseSyncCinnamon):
         ] = fields_module.VendorConnectionFields._default_fields(),
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
-    ) -> objects.VendorConnection:
+    ) -> Iterable[objects.VendorConnection]:
         query_args = self._query_builder(
             "mutation",
             "updateVendors",

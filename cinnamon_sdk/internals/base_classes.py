@@ -82,7 +82,7 @@ class BaseCinnamonField:
 
     @classmethod
     def get_python_value(cls, api_value: Any) -> Any:
-        if cls.python_iterable and api_value:
+        if cls.python_iterable and api_value is not None:
             return cls.python_iterable(
                 cls._get_core_value(value) for value in api_value
             )

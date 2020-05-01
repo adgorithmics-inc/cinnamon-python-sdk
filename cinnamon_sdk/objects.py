@@ -5,7 +5,6 @@ from .internals.constants import CinnamonUndefined
 from .internals import scalars
 from . import enums
 
-
 class CampaignTemplate(BaseCinnamonObject):
     class _API_FIELDS:
         class id(BaseCinnamonField):
@@ -1202,6 +1201,13 @@ class Catalog(BaseCinnamonObject):
             python_name = "external_event_source_ids"
             scalar = scalars.String
 
+        class productSource(BaseCinnamonField):
+            api_name = "productSource"
+            api_kind = "ENUM"
+            api_kind_name = "PRODUCT_SOURCE"
+            python_iterable = None
+            python_name = "product_source"
+
         class errors(BaseCinnamonField):
             api_name = "errors"
             api_kind = "SCALAR"
@@ -1242,6 +1248,7 @@ class Catalog(BaseCinnamonObject):
     remote_state: dict
     data_feed_id: Union[str, None, CinnamonUndefined]
     external_event_source_ids: List[str]
+    product_source: enums.PRODUCT_SOURCE
     errors: List[dict]
     warnings: List[dict]
     media_channel: "MediaChannel"
@@ -1324,173 +1331,6 @@ class Product(BaseCinnamonObject):
             python_name = "last_change_date"
             scalar = scalars.DateISO
 
-        class name(BaseCinnamonField):
-            api_name = "name"
-            api_kind = "SCALAR"
-            api_kind_name = "NonEmptyString"
-            python_iterable = None
-            python_name = "name"
-            scalar = scalars.NonEmptyString
-
-        class sku(BaseCinnamonField):
-            api_name = "sku"
-            api_kind = "SCALAR"
-            api_kind_name = "NonEmptyString"
-            python_iterable = None
-            python_name = "sku"
-            scalar = scalars.NonEmptyString
-
-        class remoteState(BaseCinnamonField):
-            api_name = "remoteState"
-            api_kind = "SCALAR"
-            api_kind_name = "JSONObject"
-            python_iterable = None
-            python_name = "remote_state"
-            scalar = scalars.JSONObject
-
-        class metadata(BaseCinnamonField):
-            api_name = "metadata"
-            api_kind = "SCALAR"
-            api_kind_name = "JSONObject"
-            python_iterable = None
-            python_name = "metadata"
-            scalar = scalars.JSONObject
-
-        class systemStatus(BaseCinnamonField):
-            api_name = "systemStatus"
-            api_kind = "ENUM"
-            api_kind_name = "SystemStatus"
-            python_iterable = None
-            python_name = "system_status"
-
-        class errors(BaseCinnamonField):
-            api_name = "errors"
-            api_kind = "SCALAR"
-            api_kind_name = "JSONObject"
-            python_iterable = list
-            python_name = "errors"
-            scalar = scalars.JSONObject
-
-        class warnings(BaseCinnamonField):
-            api_name = "warnings"
-            api_kind = "SCALAR"
-            api_kind_name = "JSONObject"
-            python_iterable = list
-            python_name = "warnings"
-            scalar = scalars.JSONObject
-
-        class marketingCampaigns(BaseCinnamonField):
-            api_name = "marketingCampaigns"
-            api_kind = "OBJECT"
-            api_kind_name = "MarketingCampaignConnection"
-            python_iterable = None
-            python_name = "marketing_campaigns"
-
-        class catalog(BaseCinnamonField):
-            api_name = "catalog"
-            api_kind = "OBJECT"
-            api_kind_name = "Catalog"
-            python_iterable = None
-            python_name = "catalog"
-
-        class vendor(BaseCinnamonField):
-            api_name = "vendor"
-            api_kind = "OBJECT"
-            api_kind_name = "Vendor"
-            python_iterable = None
-            python_name = "vendor"
-
-    id: str
-    creation_date: datetime
-    last_change_date: datetime
-    name: str
-    sku: str
-    remote_state: Union[dict, None, CinnamonUndefined]
-    metadata: dict
-    system_status: enums.SystemStatus
-    errors: List[dict]
-    warnings: List[dict]
-    marketing_campaigns: "MarketingCampaignConnection"
-    catalog: "Catalog"
-    vendor: Union["Vendor", None, CinnamonUndefined]
-
-
-class MarketingCampaignConnection(BaseCinnamonObject):
-    class _API_FIELDS:
-        class edges(BaseCinnamonField):
-            api_name = "edges"
-            api_kind = "OBJECT"
-            api_kind_name = "MarketingCampaignEdge"
-            python_iterable = list
-            python_name = "edges"
-
-        class pageInfo(BaseCinnamonField):
-            api_name = "pageInfo"
-            api_kind = "OBJECT"
-            api_kind_name = "PageInfo"
-            python_iterable = None
-            python_name = "page_info"
-
-        class totalCount(BaseCinnamonField):
-            api_name = "totalCount"
-            api_kind = "SCALAR"
-            api_kind_name = "Int"
-            python_iterable = None
-            python_name = "total_count"
-            scalar = scalars.Int
-
-    edges: List["MarketingCampaignEdge"]
-    page_info: "PageInfo"
-    total_count: int
-
-
-class MarketingCampaignEdge(BaseCinnamonObject):
-    class _API_FIELDS:
-        class node(BaseCinnamonField):
-            api_name = "node"
-            api_kind = "OBJECT"
-            api_kind_name = "MarketingCampaign"
-            python_iterable = None
-            python_name = "node"
-
-        class cursor(BaseCinnamonField):
-            api_name = "cursor"
-            api_kind = "SCALAR"
-            api_kind_name = "String"
-            python_iterable = None
-            python_name = "cursor"
-            scalar = scalars.String
-
-    node: "MarketingCampaign"
-    cursor: str
-
-
-class MarketingCampaign(BaseCinnamonObject):
-    class _API_FIELDS:
-        class id(BaseCinnamonField):
-            api_name = "id"
-            api_kind = "SCALAR"
-            api_kind_name = "ObjectId"
-            python_iterable = None
-            python_name = "id"
-            scalar = scalars.ObjectId
-
-        class creationDate(BaseCinnamonField):
-            api_name = "creationDate"
-            api_kind = "SCALAR"
-            api_kind_name = "DateISO"
-            python_iterable = None
-            python_name = "creation_date"
-            scalar = scalars.DateISO
-
-        class lastChangeDate(BaseCinnamonField):
-            api_name = "lastChangeDate"
-            api_kind = "SCALAR"
-            api_kind_name = "DateISO"
-            python_iterable = None
-            python_name = "last_change_date"
-            scalar = scalars.DateISO
-
         class resultsSource(BaseCinnamonField):
             api_name = "resultsSource"
             api_kind = "SCALAR"
@@ -1545,110 +1385,37 @@ class MarketingCampaign(BaseCinnamonObject):
             python_name = "name"
             scalar = scalars.NonEmptyString
 
-        class status(BaseCinnamonField):
-            api_name = "status"
-            api_kind = "ENUM"
-            api_kind_name = "MarketingCampaignStatus"
+        class sku(BaseCinnamonField):
+            api_name = "sku"
+            api_kind = "SCALAR"
+            api_kind_name = "NonEmptyString"
             python_iterable = None
-            python_name = "status"
+            python_name = "sku"
+            scalar = scalars.NonEmptyString
 
-        class creativeSpec(BaseCinnamonField):
-            api_name = "creativeSpec"
+        class remoteState(BaseCinnamonField):
+            api_name = "remoteState"
             api_kind = "SCALAR"
             api_kind_name = "JSONObject"
             python_iterable = None
-            python_name = "creative_spec"
+            python_name = "remote_state"
             scalar = scalars.JSONObject
 
-        class runTimeSpec(BaseCinnamonField):
-            api_name = "runTimeSpec"
+        class metadata(BaseCinnamonField):
+            api_name = "metadata"
             api_kind = "SCALAR"
             api_kind_name = "JSONObject"
             python_iterable = None
-            python_name = "run_time_spec"
+            python_name = "metadata"
             scalar = scalars.JSONObject
 
-        class locationSpec(BaseCinnamonField):
-            api_name = "locationSpec"
-            api_kind = "SCALAR"
-            api_kind_name = "JSONObject"
-            python_iterable = None
-            python_name = "location_spec"
-            scalar = scalars.JSONObject
-
-        class conversionSpec(BaseCinnamonField):
-            api_name = "conversionSpec"
-            api_kind = "SCALAR"
-            api_kind_name = "JSONObject"
-            python_iterable = None
-            python_name = "conversion_spec"
-            scalar = scalars.JSONObject
-
-        class startDate(BaseCinnamonField):
-            api_name = "startDate"
-            api_kind = "SCALAR"
-            api_kind_name = "DateISO"
-            python_iterable = None
-            python_name = "start_date"
-            scalar = scalars.DateISO
-
-        class endDate(BaseCinnamonField):
-            api_name = "endDate"
-            api_kind = "SCALAR"
-            api_kind_name = "DateISO"
-            python_iterable = None
-            python_name = "end_date"
-            scalar = scalars.DateISO
-
-        class GCPX(BaseCinnamonField):
-            api_name = "GCPX"
-            api_kind = "OBJECT"
-            api_kind_name = "GCPX"
-            python_iterable = None
-            python_name = "gcpx"
-
-        class delivering(BaseCinnamonField):
-            api_name = "delivering"
+        class imported(BaseCinnamonField):
+            api_name = "imported"
             api_kind = "SCALAR"
             api_kind_name = "Boolean"
             python_iterable = None
-            python_name = "delivering"
+            python_name = "imported"
             scalar = scalars.Boolean
-
-        class marketingAds(BaseCinnamonField):
-            api_name = "marketingAds"
-            api_kind = "OBJECT"
-            api_kind_name = "MarketingAdConnection"
-            python_iterable = None
-            python_name = "marketing_ads"
-
-        class products(BaseCinnamonField):
-            api_name = "products"
-            api_kind = "OBJECT"
-            api_kind_name = "ProductConnection"
-            python_iterable = None
-            python_name = "products"
-
-        class catalog(BaseCinnamonField):
-            api_name = "catalog"
-            api_kind = "OBJECT"
-            api_kind_name = "Catalog"
-            python_iterable = None
-            python_name = "catalog"
-
-        class campaignTemplate(BaseCinnamonField):
-            api_name = "campaignTemplate"
-            api_kind = "OBJECT"
-            api_kind_name = "CampaignTemplate"
-            python_iterable = None
-            python_name = "campaign_template"
-
-        class mediaChannel(BaseCinnamonField):
-            api_name = "mediaChannel"
-            api_kind = "OBJECT"
-            api_kind_name = "MediaChannel"
-            python_iterable = None
-            python_name = "media_channel"
 
         class results(BaseCinnamonField):
             api_name = "results"
@@ -1657,12 +1424,19 @@ class MarketingCampaign(BaseCinnamonObject):
             python_iterable = None
             python_name = "results"
 
-        class notifications(BaseCinnamonField):
-            api_name = "notifications"
+        class marketingCampaigns(BaseCinnamonField):
+            api_name = "marketingCampaigns"
             api_kind = "OBJECT"
-            api_kind_name = "NotificationConnection"
+            api_kind_name = "MarketingCampaignConnection"
             python_iterable = None
-            python_name = "notifications"
+            python_name = "marketing_campaigns"
+
+        class catalog(BaseCinnamonField):
+            api_name = "catalog"
+            api_kind = "OBJECT"
+            api_kind_name = "Catalog"
+            python_iterable = None
+            python_name = "catalog"
 
     id: str
     creation_date: datetime
@@ -1674,22 +1448,13 @@ class MarketingCampaign(BaseCinnamonObject):
     errors: List[dict]
     warnings: List[dict]
     name: str
-    status: enums.MarketingCampaignStatus
-    creative_spec: dict
-    run_time_spec: Union[dict, None, CinnamonUndefined]
-    location_spec: dict
-    conversion_spec: Union[dict, None, CinnamonUndefined]
-    start_date: datetime
-    end_date: Union[datetime, None, CinnamonUndefined]
-    gcpx: Union["GCPX", None, CinnamonUndefined]
-    delivering: bool
-    marketing_ads: "MarketingAdConnection"
-    products: "ProductConnection"
-    catalog: "Catalog"
-    campaign_template: Union["CampaignTemplate", None, CinnamonUndefined]
-    media_channel: "MediaChannel"
+    sku: str
+    remote_state: Union[dict, None, CinnamonUndefined]
+    metadata: dict
+    imported: bool
     results: "ResultConnection"
-    notifications: "NotificationConnection"
+    marketing_campaigns: "MarketingCampaignConnection"
+    catalog: "Catalog"
 
 
 class ResultResource(BaseCinnamonObject):
@@ -1978,6 +1743,479 @@ class VendorToken(BaseCinnamonObject):
     vendor: "Vendor"
     marketplace: "Marketplace"
     email: Union[str, None, CinnamonUndefined]
+
+
+class ResultConnection(BaseCinnamonObject):
+    class _API_FIELDS:
+        class edges(BaseCinnamonField):
+            api_name = "edges"
+            api_kind = "OBJECT"
+            api_kind_name = "ResultEdge"
+            python_iterable = list
+            python_name = "edges"
+
+        class pageInfo(BaseCinnamonField):
+            api_name = "pageInfo"
+            api_kind = "OBJECT"
+            api_kind_name = "PageInfo"
+            python_iterable = None
+            python_name = "page_info"
+
+        class totalCount(BaseCinnamonField):
+            api_name = "totalCount"
+            api_kind = "SCALAR"
+            api_kind_name = "Int"
+            python_iterable = None
+            python_name = "total_count"
+            scalar = scalars.Int
+
+    edges: List["ResultEdge"]
+    page_info: "PageInfo"
+    total_count: int
+
+
+class ResultEdge(BaseCinnamonObject):
+    class _API_FIELDS:
+        class node(BaseCinnamonField):
+            api_name = "node"
+            api_kind = "OBJECT"
+            api_kind_name = "Result"
+            python_iterable = None
+            python_name = "node"
+
+        class cursor(BaseCinnamonField):
+            api_name = "cursor"
+            api_kind = "SCALAR"
+            api_kind_name = "String"
+            python_iterable = None
+            python_name = "cursor"
+            scalar = scalars.String
+
+    node: "Result"
+    cursor: str
+
+
+class Result(BaseCinnamonObject):
+    class _API_FIELDS:
+        class id(BaseCinnamonField):
+            api_name = "id"
+            api_kind = "SCALAR"
+            api_kind_name = "ObjectId"
+            python_iterable = None
+            python_name = "id"
+            scalar = scalars.ObjectId
+
+        class creationDate(BaseCinnamonField):
+            api_name = "creationDate"
+            api_kind = "SCALAR"
+            api_kind_name = "DateISO"
+            python_iterable = None
+            python_name = "creation_date"
+            scalar = scalars.DateISO
+
+        class lastChangeDate(BaseCinnamonField):
+            api_name = "lastChangeDate"
+            api_kind = "SCALAR"
+            api_kind_name = "DateISO"
+            python_iterable = None
+            python_name = "last_change_date"
+            scalar = scalars.DateISO
+
+        class date(BaseCinnamonField):
+            api_name = "date"
+            api_kind = "SCALAR"
+            api_kind_name = "DateISO"
+            python_iterable = None
+            python_name = "date"
+            scalar = scalars.DateISO
+
+        class analytics(BaseCinnamonField):
+            api_name = "analytics"
+            api_kind = "OBJECT"
+            api_kind_name = "ResultAnalytics"
+            python_iterable = None
+            python_name = "analytics"
+
+        class type(BaseCinnamonField):
+            api_name = "type"
+            api_kind = "ENUM"
+            api_kind_name = "ResultResourceTypeEnum"
+            python_iterable = None
+            python_name = "type"
+
+        class breakdownType(BaseCinnamonField):
+            api_name = "breakdownType"
+            api_kind = "ENUM"
+            api_kind_name = "ResultBreakdownTypeEnum"
+            python_iterable = None
+            python_name = "breakdown_type"
+
+        class resource(BaseCinnamonField):
+            api_name = "resource"
+            api_kind = "INTERFACE"
+            api_kind_name = "ResultResource"
+            python_iterable = None
+            python_name = "resource"
+
+        class breakdown(BaseCinnamonField):
+            api_name = "breakdown"
+            api_kind = "INTERFACE"
+            api_kind_name = "ResultResource"
+            python_iterable = None
+            python_name = "breakdown"
+
+        class vendor(BaseCinnamonField):
+            api_name = "vendor"
+            api_kind = "OBJECT"
+            api_kind_name = "Vendor"
+            python_iterable = None
+            python_name = "vendor"
+
+    id: str
+    creation_date: datetime
+    last_change_date: datetime
+    date: datetime
+    analytics: "ResultAnalytics"
+    type: enums.ResultResourceTypeEnum
+    breakdown_type: enums.ResultBreakdownTypeEnum
+    resource: Any
+    breakdown: Any
+    vendor: Union["Vendor", None, CinnamonUndefined]
+
+
+class ResultAnalytics(BaseCinnamonObject):
+    class _API_FIELDS:
+        class results(BaseCinnamonField):
+            api_name = "results"
+            api_kind = "SCALAR"
+            api_kind_name = "Int"
+            python_iterable = None
+            python_name = "results"
+            scalar = scalars.Int
+
+        class impressions(BaseCinnamonField):
+            api_name = "impressions"
+            api_kind = "SCALAR"
+            api_kind_name = "Int"
+            python_iterable = None
+            python_name = "impressions"
+            scalar = scalars.Int
+
+        class clicks(BaseCinnamonField):
+            api_name = "clicks"
+            api_kind = "SCALAR"
+            api_kind_name = "Int"
+            python_iterable = None
+            python_name = "clicks"
+            scalar = scalars.Int
+
+        class spend(BaseCinnamonField):
+            api_name = "spend"
+            api_kind = "SCALAR"
+            api_kind_name = "Float"
+            python_iterable = None
+            python_name = "spend"
+            scalar = scalars.Float
+
+        class purchases(BaseCinnamonField):
+            api_name = "purchases"
+            api_kind = "SCALAR"
+            api_kind_name = "Int"
+            python_iterable = None
+            python_name = "purchases"
+            scalar = scalars.Int
+
+        class purchasesValue(BaseCinnamonField):
+            api_name = "purchasesValue"
+            api_kind = "SCALAR"
+            api_kind_name = "Float"
+            python_iterable = None
+            python_name = "purchases_value"
+            scalar = scalars.Float
+
+    results: Union[int, None, CinnamonUndefined]
+    impressions: Union[int, None, CinnamonUndefined]
+    clicks: Union[int, None, CinnamonUndefined]
+    spend: Union[float, None, CinnamonUndefined]
+    purchases: Union[int, None, CinnamonUndefined]
+    purchases_value: Union[float, None, CinnamonUndefined]
+
+
+class MarketingCampaignConnection(BaseCinnamonObject):
+    class _API_FIELDS:
+        class edges(BaseCinnamonField):
+            api_name = "edges"
+            api_kind = "OBJECT"
+            api_kind_name = "MarketingCampaignEdge"
+            python_iterable = list
+            python_name = "edges"
+
+        class pageInfo(BaseCinnamonField):
+            api_name = "pageInfo"
+            api_kind = "OBJECT"
+            api_kind_name = "PageInfo"
+            python_iterable = None
+            python_name = "page_info"
+
+        class totalCount(BaseCinnamonField):
+            api_name = "totalCount"
+            api_kind = "SCALAR"
+            api_kind_name = "Int"
+            python_iterable = None
+            python_name = "total_count"
+            scalar = scalars.Int
+
+    edges: List["MarketingCampaignEdge"]
+    page_info: "PageInfo"
+    total_count: int
+
+
+class MarketingCampaignEdge(BaseCinnamonObject):
+    class _API_FIELDS:
+        class node(BaseCinnamonField):
+            api_name = "node"
+            api_kind = "OBJECT"
+            api_kind_name = "MarketingCampaign"
+            python_iterable = None
+            python_name = "node"
+
+        class cursor(BaseCinnamonField):
+            api_name = "cursor"
+            api_kind = "SCALAR"
+            api_kind_name = "String"
+            python_iterable = None
+            python_name = "cursor"
+            scalar = scalars.String
+
+    node: "MarketingCampaign"
+    cursor: str
+
+
+class MarketingCampaign(BaseCinnamonObject):
+    class _API_FIELDS:
+        class id(BaseCinnamonField):
+            api_name = "id"
+            api_kind = "SCALAR"
+            api_kind_name = "ObjectId"
+            python_iterable = None
+            python_name = "id"
+            scalar = scalars.ObjectId
+
+        class creationDate(BaseCinnamonField):
+            api_name = "creationDate"
+            api_kind = "SCALAR"
+            api_kind_name = "DateISO"
+            python_iterable = None
+            python_name = "creation_date"
+            scalar = scalars.DateISO
+
+        class lastChangeDate(BaseCinnamonField):
+            api_name = "lastChangeDate"
+            api_kind = "SCALAR"
+            api_kind_name = "DateISO"
+            python_iterable = None
+            python_name = "last_change_date"
+            scalar = scalars.DateISO
+
+        class resultsSource(BaseCinnamonField):
+            api_name = "resultsSource"
+            api_kind = "SCALAR"
+            api_kind_name = "NonEmptyString"
+            python_iterable = list
+            python_name = "results_source"
+            scalar = scalars.NonEmptyString
+
+        class kpi(BaseCinnamonField):
+            api_name = "kpi"
+            api_kind = "SCALAR"
+            api_kind_name = "String"
+            python_iterable = None
+            python_name = "kpi"
+            scalar = scalars.String
+
+        class vendor(BaseCinnamonField):
+            api_name = "vendor"
+            api_kind = "OBJECT"
+            api_kind_name = "Vendor"
+            python_iterable = None
+            python_name = "vendor"
+
+        class systemStatus(BaseCinnamonField):
+            api_name = "systemStatus"
+            api_kind = "ENUM"
+            api_kind_name = "SystemStatus"
+            python_iterable = None
+            python_name = "system_status"
+
+        class errors(BaseCinnamonField):
+            api_name = "errors"
+            api_kind = "SCALAR"
+            api_kind_name = "JSONObject"
+            python_iterable = list
+            python_name = "errors"
+            scalar = scalars.JSONObject
+
+        class warnings(BaseCinnamonField):
+            api_name = "warnings"
+            api_kind = "SCALAR"
+            api_kind_name = "JSONObject"
+            python_iterable = list
+            python_name = "warnings"
+            scalar = scalars.JSONObject
+
+        class name(BaseCinnamonField):
+            api_name = "name"
+            api_kind = "SCALAR"
+            api_kind_name = "NonEmptyString"
+            python_iterable = None
+            python_name = "name"
+            scalar = scalars.NonEmptyString
+
+        class status(BaseCinnamonField):
+            api_name = "status"
+            api_kind = "ENUM"
+            api_kind_name = "MarketingCampaignStatus"
+            python_iterable = None
+            python_name = "status"
+
+        class creativeSpec(BaseCinnamonField):
+            api_name = "creativeSpec"
+            api_kind = "SCALAR"
+            api_kind_name = "JSONObject"
+            python_iterable = None
+            python_name = "creative_spec"
+            scalar = scalars.JSONObject
+
+        class runTimeSpec(BaseCinnamonField):
+            api_name = "runTimeSpec"
+            api_kind = "SCALAR"
+            api_kind_name = "JSONObject"
+            python_iterable = None
+            python_name = "run_time_spec"
+            scalar = scalars.JSONObject
+
+        class locationSpec(BaseCinnamonField):
+            api_name = "locationSpec"
+            api_kind = "SCALAR"
+            api_kind_name = "JSONObject"
+            python_iterable = None
+            python_name = "location_spec"
+            scalar = scalars.JSONObject
+
+        class conversionSpec(BaseCinnamonField):
+            api_name = "conversionSpec"
+            api_kind = "SCALAR"
+            api_kind_name = "JSONObject"
+            python_iterable = None
+            python_name = "conversion_spec"
+            scalar = scalars.JSONObject
+
+        class startDate(BaseCinnamonField):
+            api_name = "startDate"
+            api_kind = "SCALAR"
+            api_kind_name = "DateISO"
+            python_iterable = None
+            python_name = "start_date"
+            scalar = scalars.DateISO
+
+        class endDate(BaseCinnamonField):
+            api_name = "endDate"
+            api_kind = "SCALAR"
+            api_kind_name = "DateISO"
+            python_iterable = None
+            python_name = "end_date"
+            scalar = scalars.DateISO
+
+        class GCPX(BaseCinnamonField):
+            api_name = "GCPX"
+            api_kind = "OBJECT"
+            api_kind_name = "GCPX"
+            python_iterable = None
+            python_name = "gcpx"
+
+        class delivering(BaseCinnamonField):
+            api_name = "delivering"
+            api_kind = "SCALAR"
+            api_kind_name = "Boolean"
+            python_iterable = None
+            python_name = "delivering"
+            scalar = scalars.Boolean
+
+        class marketingAds(BaseCinnamonField):
+            api_name = "marketingAds"
+            api_kind = "OBJECT"
+            api_kind_name = "MarketingAdConnection"
+            python_iterable = None
+            python_name = "marketing_ads"
+
+        class products(BaseCinnamonField):
+            api_name = "products"
+            api_kind = "OBJECT"
+            api_kind_name = "ProductConnection"
+            python_iterable = None
+            python_name = "products"
+
+        class catalog(BaseCinnamonField):
+            api_name = "catalog"
+            api_kind = "OBJECT"
+            api_kind_name = "Catalog"
+            python_iterable = None
+            python_name = "catalog"
+
+        class campaignTemplate(BaseCinnamonField):
+            api_name = "campaignTemplate"
+            api_kind = "OBJECT"
+            api_kind_name = "CampaignTemplate"
+            python_iterable = None
+            python_name = "campaign_template"
+
+        class mediaChannel(BaseCinnamonField):
+            api_name = "mediaChannel"
+            api_kind = "OBJECT"
+            api_kind_name = "MediaChannel"
+            python_iterable = None
+            python_name = "media_channel"
+
+        class results(BaseCinnamonField):
+            api_name = "results"
+            api_kind = "OBJECT"
+            api_kind_name = "ResultConnection"
+            python_iterable = None
+            python_name = "results"
+
+        class notifications(BaseCinnamonField):
+            api_name = "notifications"
+            api_kind = "OBJECT"
+            api_kind_name = "NotificationConnection"
+            python_iterable = None
+            python_name = "notifications"
+
+    id: str
+    creation_date: datetime
+    last_change_date: datetime
+    results_source: List[str]
+    kpi: Union[str, None, CinnamonUndefined]
+    vendor: Union["Vendor", None, CinnamonUndefined]
+    system_status: enums.SystemStatus
+    errors: List[dict]
+    warnings: List[dict]
+    name: str
+    status: enums.MarketingCampaignStatus
+    creative_spec: dict
+    run_time_spec: Union[dict, None, CinnamonUndefined]
+    location_spec: dict
+    conversion_spec: Union[dict, None, CinnamonUndefined]
+    start_date: datetime
+    end_date: Union[datetime, None, CinnamonUndefined]
+    gcpx: Union["GCPX", None, CinnamonUndefined]
+    delivering: bool
+    marketing_ads: "MarketingAdConnection"
+    products: "ProductConnection"
+    catalog: "Catalog"
+    campaign_template: Union["CampaignTemplate", None, CinnamonUndefined]
+    media_channel: "MediaChannel"
+    results: "ResultConnection"
+    notifications: "NotificationConnection"
 
 
 class NotificationResource(BaseCinnamonObject):
@@ -2341,186 +2579,6 @@ class AdPreview(BaseCinnamonObject):
     url: str
     dimensions: List[int]
     placement: str
-
-
-class ResultConnection(BaseCinnamonObject):
-    class _API_FIELDS:
-        class edges(BaseCinnamonField):
-            api_name = "edges"
-            api_kind = "OBJECT"
-            api_kind_name = "ResultEdge"
-            python_iterable = list
-            python_name = "edges"
-
-        class pageInfo(BaseCinnamonField):
-            api_name = "pageInfo"
-            api_kind = "OBJECT"
-            api_kind_name = "PageInfo"
-            python_iterable = None
-            python_name = "page_info"
-
-        class totalCount(BaseCinnamonField):
-            api_name = "totalCount"
-            api_kind = "SCALAR"
-            api_kind_name = "Int"
-            python_iterable = None
-            python_name = "total_count"
-            scalar = scalars.Int
-
-    edges: List["ResultEdge"]
-    page_info: "PageInfo"
-    total_count: int
-
-
-class ResultEdge(BaseCinnamonObject):
-    class _API_FIELDS:
-        class node(BaseCinnamonField):
-            api_name = "node"
-            api_kind = "OBJECT"
-            api_kind_name = "Result"
-            python_iterable = None
-            python_name = "node"
-
-        class cursor(BaseCinnamonField):
-            api_name = "cursor"
-            api_kind = "SCALAR"
-            api_kind_name = "String"
-            python_iterable = None
-            python_name = "cursor"
-            scalar = scalars.String
-
-    node: "Result"
-    cursor: str
-
-
-class Result(BaseCinnamonObject):
-    class _API_FIELDS:
-        class id(BaseCinnamonField):
-            api_name = "id"
-            api_kind = "SCALAR"
-            api_kind_name = "ObjectId"
-            python_iterable = None
-            python_name = "id"
-            scalar = scalars.ObjectId
-
-        class creationDate(BaseCinnamonField):
-            api_name = "creationDate"
-            api_kind = "SCALAR"
-            api_kind_name = "DateISO"
-            python_iterable = None
-            python_name = "creation_date"
-            scalar = scalars.DateISO
-
-        class lastChangeDate(BaseCinnamonField):
-            api_name = "lastChangeDate"
-            api_kind = "SCALAR"
-            api_kind_name = "DateISO"
-            python_iterable = None
-            python_name = "last_change_date"
-            scalar = scalars.DateISO
-
-        class date(BaseCinnamonField):
-            api_name = "date"
-            api_kind = "SCALAR"
-            api_kind_name = "DateISO"
-            python_iterable = None
-            python_name = "date"
-            scalar = scalars.DateISO
-
-        class analytics(BaseCinnamonField):
-            api_name = "analytics"
-            api_kind = "OBJECT"
-            api_kind_name = "ResultAnalytics"
-            python_iterable = None
-            python_name = "analytics"
-
-        class type(BaseCinnamonField):
-            api_name = "type"
-            api_kind = "ENUM"
-            api_kind_name = "ResultResourceTypeEnum"
-            python_iterable = None
-            python_name = "type"
-
-        class resource(BaseCinnamonField):
-            api_name = "resource"
-            api_kind = "INTERFACE"
-            api_kind_name = "ResultResource"
-            python_iterable = None
-            python_name = "resource"
-
-        class vendor(BaseCinnamonField):
-            api_name = "vendor"
-            api_kind = "OBJECT"
-            api_kind_name = "Vendor"
-            python_iterable = None
-            python_name = "vendor"
-
-    id: str
-    creation_date: datetime
-    last_change_date: datetime
-    date: datetime
-    analytics: "ResultAnalytics"
-    type: enums.ResultResourceTypeEnum
-    resource: Any
-    vendor: Union["Vendor", None, CinnamonUndefined]
-
-
-class ResultAnalytics(BaseCinnamonObject):
-    class _API_FIELDS:
-        class results(BaseCinnamonField):
-            api_name = "results"
-            api_kind = "SCALAR"
-            api_kind_name = "Int"
-            python_iterable = None
-            python_name = "results"
-            scalar = scalars.Int
-
-        class impressions(BaseCinnamonField):
-            api_name = "impressions"
-            api_kind = "SCALAR"
-            api_kind_name = "Int"
-            python_iterable = None
-            python_name = "impressions"
-            scalar = scalars.Int
-
-        class clicks(BaseCinnamonField):
-            api_name = "clicks"
-            api_kind = "SCALAR"
-            api_kind_name = "Int"
-            python_iterable = None
-            python_name = "clicks"
-            scalar = scalars.Int
-
-        class spend(BaseCinnamonField):
-            api_name = "spend"
-            api_kind = "SCALAR"
-            api_kind_name = "Float"
-            python_iterable = None
-            python_name = "spend"
-            scalar = scalars.Float
-
-        class purchases(BaseCinnamonField):
-            api_name = "purchases"
-            api_kind = "SCALAR"
-            api_kind_name = "Int"
-            python_iterable = None
-            python_name = "purchases"
-            scalar = scalars.Int
-
-        class purchasesValue(BaseCinnamonField):
-            api_name = "purchasesValue"
-            api_kind = "SCALAR"
-            api_kind_name = "Float"
-            python_iterable = None
-            python_name = "purchases_value"
-            scalar = scalars.Float
-
-    results: Union[int, None, CinnamonUndefined]
-    impressions: Union[int, None, CinnamonUndefined]
-    clicks: Union[int, None, CinnamonUndefined]
-    spend: Union[float, None, CinnamonUndefined]
-    purchases: Union[int, None, CinnamonUndefined]
-    purchases_value: Union[float, None, CinnamonUndefined]
 
 
 class NotificationConnection(BaseCinnamonObject):
@@ -3805,9 +3863,24 @@ Catalog._API_FIELDS.products.obj = ProductConnection
 ProductConnection._API_FIELDS.edges.obj = ProductEdge
 ProductConnection._API_FIELDS.pageInfo.obj = PageInfo
 ProductEdge._API_FIELDS.node.obj = Product
+Product._API_FIELDS.vendor.obj = Vendor
+Product._API_FIELDS.results.obj = ResultConnection
 Product._API_FIELDS.marketingCampaigns.obj = MarketingCampaignConnection
 Product._API_FIELDS.catalog.obj = Catalog
-Product._API_FIELDS.vendor.obj = Vendor
+ResultResource._API_FIELDS.vendor.obj = Vendor
+Vendor._API_FIELDS.marketplace.obj = Marketplace
+Vendor._API_FIELDS.vendorTokens.obj = VendorTokenConnection
+Vendor._API_FIELDS.products.obj = ProductConnection
+VendorTokenConnection._API_FIELDS.edges.obj = VendorTokenEdge
+VendorTokenConnection._API_FIELDS.pageInfo.obj = PageInfo
+VendorTokenEdge._API_FIELDS.node.obj = VendorToken
+VendorToken._API_FIELDS.vendor.obj = Vendor
+VendorToken._API_FIELDS.marketplace.obj = Marketplace
+ResultConnection._API_FIELDS.edges.obj = ResultEdge
+ResultConnection._API_FIELDS.pageInfo.obj = PageInfo
+ResultEdge._API_FIELDS.node.obj = Result
+Result._API_FIELDS.analytics.obj = ResultAnalytics
+Result._API_FIELDS.vendor.obj = Vendor
 MarketingCampaignConnection._API_FIELDS.edges.obj = MarketingCampaignEdge
 MarketingCampaignConnection._API_FIELDS.pageInfo.obj = PageInfo
 MarketingCampaignEdge._API_FIELDS.node.obj = MarketingCampaign
@@ -3820,15 +3893,6 @@ MarketingCampaign._API_FIELDS.campaignTemplate.obj = CampaignTemplate
 MarketingCampaign._API_FIELDS.mediaChannel.obj = MediaChannel
 MarketingCampaign._API_FIELDS.results.obj = ResultConnection
 MarketingCampaign._API_FIELDS.notifications.obj = NotificationConnection
-ResultResource._API_FIELDS.vendor.obj = Vendor
-Vendor._API_FIELDS.marketplace.obj = Marketplace
-Vendor._API_FIELDS.vendorTokens.obj = VendorTokenConnection
-Vendor._API_FIELDS.products.obj = ProductConnection
-VendorTokenConnection._API_FIELDS.edges.obj = VendorTokenEdge
-VendorTokenConnection._API_FIELDS.pageInfo.obj = PageInfo
-VendorTokenEdge._API_FIELDS.node.obj = VendorToken
-VendorToken._API_FIELDS.vendor.obj = Vendor
-VendorToken._API_FIELDS.marketplace.obj = Marketplace
 GCPX._API_FIELDS.campaignTemplate.obj = CampaignTemplate
 GCPX._API_FIELDS.marketplace.obj = Marketplace
 GCPX._API_FIELDS.marketingCampaigns.obj = MarketingCampaignConnection
@@ -3839,11 +3903,6 @@ MarketingAd._API_FIELDS.vendor.obj = Vendor
 MarketingAd._API_FIELDS.adPreviews.obj = AdPreview
 MarketingAd._API_FIELDS.results.obj = ResultConnection
 MarketingAd._API_FIELDS.marketingCampaign.obj = MarketingCampaign
-ResultConnection._API_FIELDS.edges.obj = ResultEdge
-ResultConnection._API_FIELDS.pageInfo.obj = PageInfo
-ResultEdge._API_FIELDS.node.obj = Result
-Result._API_FIELDS.analytics.obj = ResultAnalytics
-Result._API_FIELDS.vendor.obj = Vendor
 NotificationConnection._API_FIELDS.edges.obj = NotificationEdge
 NotificationConnection._API_FIELDS.pageInfo.obj = PageInfo
 NotificationEdge._API_FIELDS.node.obj = Notification
@@ -3911,24 +3970,24 @@ __all__ = [
     "ProductConnection",
     "ProductEdge",
     "Product",
-    "MarketingCampaignConnection",
-    "MarketingCampaignEdge",
-    "MarketingCampaign",
     "ResultResource",
     "Vendor",
     "VendorTokenConnection",
     "VendorTokenEdge",
     "VendorToken",
+    "ResultConnection",
+    "ResultEdge",
+    "Result",
+    "ResultAnalytics",
+    "MarketingCampaignConnection",
+    "MarketingCampaignEdge",
+    "MarketingCampaign",
     "NotificationResource",
     "GCPX",
     "MarketingAdConnection",
     "MarketingAdEdge",
     "MarketingAd",
     "AdPreview",
-    "ResultConnection",
-    "ResultEdge",
-    "Result",
-    "ResultAnalytics",
     "NotificationConnection",
     "NotificationEdge",
     "Notification",

@@ -22,11 +22,15 @@ class DateISO(BaseCinnamonScalar):
 
     @staticmethod
     def decode(api_value: str) -> datetime.datetime:
-        return dateutil.parser.parse(api_value)
+        if api_value:
+            return dateutil.parser.parse(api_value)
+        return None
 
     @staticmethod
     def encode(python_value: datetime.datetime) -> str:
-        return python_value.astimezone(pytz.UTC).isoformat()
+        if isinstance(python_value, datetime.datetime):
+            return python_value.astimezone(pytz.UTC).isoformat()
+        return python_value
 
 
 class NonEmptyString(BaseCinnamonScalar):

@@ -61,14 +61,26 @@ class CatalogType(Enum):
     vehicles = "vehicles"
 
 
-class MarketingCampaignStatus(Enum):
-    ACTIVE = "ACTIVE"
-    PAUSED = "PAUSED"
+class PRODUCT_SOURCE(Enum):
+    CINNAMON = "CINNAMON"
+    EXTERNAL = "EXTERNAL"
+
+
+class ResultBreakdownTypeEnum(Enum):
+    MarketingAd = "MarketingAd"
+    MarketingCampaign = "MarketingCampaign"
+    Product = "Product"
 
 
 class ResultResourceTypeEnum(Enum):
     MarketingAd = "MarketingAd"
     MarketingCampaign = "MarketingCampaign"
+    Product = "Product"
+
+
+class MarketingCampaignStatus(Enum):
+    ACTIVE = "ACTIVE"
+    PAUSED = "PAUSED"
 
 
 class NOTIFICATION_STATUS(Enum):
@@ -107,8 +119,10 @@ __all__ = [
     "AuthPermission",
     "TokenStatus",
     "CatalogType",
-    "MarketingCampaignStatus",
+    "PRODUCT_SOURCE",
+    "ResultBreakdownTypeEnum",
     "ResultResourceTypeEnum",
+    "MarketingCampaignStatus",
     "NOTIFICATION_STATUS",
     "NOTIFICATION_SEVERITY",
     "NOTIFICATION_CODE",

@@ -259,10 +259,11 @@ class SchemaReader:
         for query in t["fields"]:
             if query["name"] in EXCLUDE_QUERIES:
                 continue
-            args = sorted(
-                [CinnamonToPythonType.solve(arg) for arg in query["args"]],
-                key=lambda t: not t.not_null,
-            )
+            args = [CinnamonToPythonType.solve(arg) for arg in query["args"]]
+            # sort "id" arguments to the front
+            args = sorted(args, key=lambda t: t.api_name != "id")
+            # sort arguments are not null (require input) to the front
+            args = sorted(args, key=lambda t: not t.not_null)
             self.queries.append(
                 GraphQLQuery(
                     name=query["name"],
@@ -488,7 +489,7 @@ class PythonCodeGenerator:
                 return_hint = f"Iterable[{return_hint}]"
 
             function_code = [
-                f"def {query.python_name}(self, {', '.join(args)}) -> : {return_hint}",
+                f"def {query.python_name}(self, {', '.join(args)}) -> {return_hint}:",
                 f"    query_args = self._query_builder(",
                 f"        {repr(query.query_type)},",
                 f"        {repr(query.name)},",
