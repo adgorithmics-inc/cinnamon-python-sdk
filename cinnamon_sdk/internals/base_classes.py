@@ -3,6 +3,8 @@ import pydash
 import json
 import requests
 import copy
+import datetime
+import pytz
 from typing import Union, List, Any, Iterable
 from enum import Enum
 from requests import Response
@@ -16,6 +18,19 @@ from .constants import (
     FilterInput,
 )
 from .exceptions import CinnamonException
+
+
+def datetime_encoder(dt: datetime.datetime) -> str:
+    if isinstance(dt, datetime.datetime):
+        return dt.astimezone(pytz.UTC).isoformat()
+    return dt
+
+
+class CinnamonJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return datetime_encoder(obj)
+        return json.JSONEncoder.default(self, obj)
 
 
 class BaseCinnamonScalar:

@@ -1,8 +1,7 @@
 import datetime
-import pytz
 import dateutil.parser
 
-from .base_classes import BaseCinnamonScalar
+from .base_classes import BaseCinnamonScalar, datetime_encoder
 
 
 class ObjectId(BaseCinnamonScalar):
@@ -28,9 +27,7 @@ class DateISO(BaseCinnamonScalar):
 
     @staticmethod
     def encode(python_value: datetime.datetime) -> str:
-        if isinstance(python_value, datetime.datetime):
-            return python_value.astimezone(pytz.UTC).isoformat()
-        return python_value
+        return datetime_encoder(python_value)
 
 
 class NonEmptyString(BaseCinnamonScalar):
