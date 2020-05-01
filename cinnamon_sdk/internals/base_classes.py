@@ -30,6 +30,8 @@ class CinnamonJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime.datetime):
             return datetime_encoder(obj)
+        if isinstance(obj, Enum):
+            return obj.value
         return json.JSONEncoder.default(self, obj)
 
 
