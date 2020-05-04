@@ -1,6 +1,6 @@
 from typing import Union, List, Iterable
 from datetime import datetime
-from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField
+from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField, QueryFieldSet, QueryField
 from .internals.constants import CinnamonUndefined
 from .internals import scalars
 from . import fields as fields_module
@@ -1505,8 +1505,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.CampaignTemplateFields
-        ] = fields_module.CampaignTemplateFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CampaignTemplateFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CampaignTemplate:
@@ -1530,8 +1530,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CampaignTemplateConnectionFields
-        ] = fields_module.CampaignTemplateConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CampaignTemplateConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CampaignTemplateConnection]:
@@ -1557,8 +1557,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CampaignTemplateConnectionFields
-        ] = fields_module.CampaignTemplateConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CampaignTemplateConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CampaignTemplateConnection]:
@@ -1582,8 +1582,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.CatalogFields
-        ] = fields_module.CatalogFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CatalogFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Catalog:
@@ -1600,8 +1600,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CatalogConnectionFields
-        ] = fields_module.CatalogConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CatalogConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CatalogConnection]:
@@ -1621,8 +1621,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.CreativeFontFields
-        ] = fields_module.CreativeFontFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeFontFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeFont:
@@ -1646,8 +1646,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CreativeFontConnectionFields
-        ] = fields_module.CreativeFontConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeFontConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CreativeFontConnection]:
@@ -1667,8 +1667,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.CreativeImageFields
-        ] = fields_module.CreativeImageFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeImageFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeImage:
@@ -1692,8 +1692,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CreativeImageConnectionFields
-        ] = fields_module.CreativeImageConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeImageConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CreativeImageConnection]:
@@ -1717,8 +1717,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.CreativeLayerFields
-        ] = fields_module.CreativeLayerFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeLayerFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeLayer:
@@ -1742,8 +1742,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CreativeLayerConnectionFields
-        ] = fields_module.CreativeLayerConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeLayerConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CreativeLayerConnection]:
@@ -1767,8 +1767,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.CreativeTemplateFields
-        ] = fields_module.CreativeTemplateFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeTemplateFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeTemplate:
@@ -1792,8 +1792,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CreativeTemplateConnectionFields
-        ] = fields_module.CreativeTemplateConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeTemplateConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CreativeTemplateConnection]:
@@ -1817,8 +1817,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.EntitlementFields
-        ] = fields_module.EntitlementFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.EntitlementFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Entitlement:
@@ -1839,8 +1839,8 @@ class Cinnamon(BaseSyncCinnamon):
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.EntitlementConnectionFields
-        ] = fields_module.EntitlementConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.EntitlementConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.EntitlementConnection]:
@@ -1860,8 +1860,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.MarketingAdFields
-        ] = fields_module.MarketingAdFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingAdFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MarketingAd:
@@ -1883,8 +1883,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.MarketingAdConnectionFields
-        ] = fields_module.MarketingAdConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingAdConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.MarketingAdConnection]:
@@ -1904,8 +1904,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.MarketingCampaignFields
-        ] = fields_module.MarketingCampaignFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingCampaignFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MarketingCampaign:
@@ -1929,8 +1929,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.MarketingCampaignConnectionFields
-        ] = fields_module.MarketingCampaignConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingCampaignConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.MarketingCampaignConnection]:
@@ -1954,8 +1954,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.MarketplaceFields
-        ] = fields_module.MarketplaceFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketplaceFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Marketplace:
@@ -1977,8 +1977,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.MarketplaceConnectionFields
-        ] = fields_module.MarketplaceConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketplaceConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.MarketplaceConnection]:
@@ -1996,7 +1996,9 @@ class Cinnamon(BaseSyncCinnamon):
 
     def me(
         self,
-        fields: List[fields_module.MeFields] = fields_module.MeFields._default_fields(),
+        fields: List[
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MeFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Me:
@@ -2011,8 +2013,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.MediaChannelFields
-        ] = fields_module.MediaChannelFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MediaChannelFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MediaChannel:
@@ -2036,8 +2038,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.MediaChannelConnectionFields
-        ] = fields_module.MediaChannelConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MediaChannelConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.MediaChannelConnection]:
@@ -2057,8 +2059,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.NotificationFields
-        ] = fields_module.NotificationFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.NotificationFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Notification:
@@ -2081,8 +2083,8 @@ class Cinnamon(BaseSyncCinnamon):
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.NotificationConnectionFields
-        ] = fields_module.NotificationConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.NotificationConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.NotificationConnection]:
@@ -2102,8 +2104,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.OrganizationFields
-        ] = fields_module.OrganizationFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.OrganizationFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Organization:
@@ -2127,8 +2129,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.OrganizationConnectionFields
-        ] = fields_module.OrganizationConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.OrganizationConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.OrganizationConnection]:
@@ -2148,8 +2150,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.ProductFields
-        ] = fields_module.ProductFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.ProductFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Product:
@@ -2166,8 +2168,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.ProductConnectionFields
-        ] = fields_module.ProductConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.ProductConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.ProductConnection]:
@@ -2187,8 +2189,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.ResultFields
-        ] = fields_module.ResultFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.ResultFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Result:
@@ -2204,8 +2206,8 @@ class Cinnamon(BaseSyncCinnamon):
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.ResultConnectionFields
-        ] = fields_module.ResultConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.ResultConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.ResultConnection]:
@@ -2225,8 +2227,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.VendorFields
-        ] = fields_module.VendorFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Vendor:
@@ -2243,8 +2245,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.VendorConnectionFields
-        ] = fields_module.VendorConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.VendorConnection]:
@@ -2264,8 +2266,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.VendorTokenFields
-        ] = fields_module.VendorTokenFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorTokenFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.VendorToken:
@@ -2286,8 +2288,8 @@ class Cinnamon(BaseSyncCinnamon):
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.VendorTokenConnectionFields
-        ] = fields_module.VendorTokenConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorTokenConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.VendorTokenConnection]:
@@ -2307,8 +2309,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.RefreshTokenInput,
         fields: List[
-            fields_module.TokenFields
-        ] = fields_module.TokenFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.TokenFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Token:
@@ -2330,8 +2332,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.CatalogCreateInput,
         fields: List[
-            fields_module.CatalogFields
-        ] = fields_module.CatalogFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CatalogFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Catalog:
@@ -2353,8 +2355,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.CatalogImportInput,
         fields: List[
-            fields_module.CatalogFields
-        ] = fields_module.CatalogFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CatalogFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Catalog:
@@ -2377,8 +2379,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.CatalogUpdateInput,
         fields: List[
-            fields_module.CatalogFields
-        ] = fields_module.CatalogFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CatalogFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Catalog:
@@ -2403,8 +2405,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CatalogConnectionFields
-        ] = fields_module.CatalogConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CatalogConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CatalogConnection]:
@@ -2432,8 +2434,8 @@ class Cinnamon(BaseSyncCinnamon):
             inputs.CatalogSyncInput, None, CinnamonUndefined
         ] = CinnamonUndefined,
         fields: List[
-            fields_module.CatalogFields
-        ] = fields_module.CatalogFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CatalogFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Catalog:
@@ -2453,8 +2455,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.CatalogFields
-        ] = fields_module.CatalogFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CatalogFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Catalog:
@@ -2476,8 +2478,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -2499,8 +2501,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.CreativeFontCreateInput,
         fields: List[
-            fields_module.CreativeFontFields
-        ] = fields_module.CreativeFontFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeFontFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeFont:
@@ -2523,8 +2525,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.CreativeFontUpdateInput,
         fields: List[
-            fields_module.CreativeFontFields
-        ] = fields_module.CreativeFontFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeFontFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeFont:
@@ -2549,8 +2551,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CreativeFontConnectionFields
-        ] = fields_module.CreativeFontConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeFontConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CreativeFontConnection]:
@@ -2579,8 +2581,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -2602,8 +2604,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.CreativeImageCreateInput,
         fields: List[
-            fields_module.CreativeImageFields
-        ] = fields_module.CreativeImageFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeImageFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeImage:
@@ -2626,8 +2628,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.CreativeImageUpdateInput,
         fields: List[
-            fields_module.CreativeImageFields
-        ] = fields_module.CreativeImageFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeImageFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeImage:
@@ -2652,8 +2654,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CreativeImageConnectionFields
-        ] = fields_module.CreativeImageConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeImageConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CreativeImageConnection]:
@@ -2682,8 +2684,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -2705,8 +2707,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.CreativeLayerCreateInput,
         fields: List[
-            fields_module.CreativeLayerFields
-        ] = fields_module.CreativeLayerFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeLayerFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeLayer:
@@ -2729,8 +2731,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.CreativeLayerUpdateInput,
         fields: List[
-            fields_module.CreativeLayerFields
-        ] = fields_module.CreativeLayerFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeLayerFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeLayer:
@@ -2755,8 +2757,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CreativeLayerConnectionFields
-        ] = fields_module.CreativeLayerConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeLayerConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CreativeLayerConnection]:
@@ -2785,8 +2787,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -2808,8 +2810,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.CreativeTemplateCreateInput,
         fields: List[
-            fields_module.CreativeTemplateFields
-        ] = fields_module.CreativeTemplateFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeTemplateFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeTemplate:
@@ -2832,8 +2834,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.CreativeTemplateUpdateInput,
         fields: List[
-            fields_module.CreativeTemplateFields
-        ] = fields_module.CreativeTemplateFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeTemplateFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.CreativeTemplate:
@@ -2858,8 +2860,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.CreativeTemplateConnectionFields
-        ] = fields_module.CreativeTemplateConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.CreativeTemplateConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.CreativeTemplateConnection]:
@@ -2888,8 +2890,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -2911,8 +2913,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.EntitlementInput,
         fields: List[
-            fields_module.EntitlementFields
-        ] = fields_module.EntitlementFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.EntitlementFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Entitlement:
@@ -2935,8 +2937,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.EntitlementUpdateInput,
         fields: List[
-            fields_module.EntitlementFields
-        ] = fields_module.EntitlementFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.EntitlementFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Entitlement:
@@ -2960,8 +2962,8 @@ class Cinnamon(BaseSyncCinnamon):
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.EntitlementConnectionFields
-        ] = fields_module.EntitlementConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.EntitlementConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.EntitlementConnection]:
@@ -2985,8 +2987,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -3008,8 +3010,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.MarketingCampaignInput,
         fields: List[
-            fields_module.MarketingCampaignFields
-        ] = fields_module.MarketingCampaignFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingCampaignFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MarketingCampaign:
@@ -3032,8 +3034,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.MarketingCampaignUpdateInput,
         fields: List[
-            fields_module.MarketingCampaignFields
-        ] = fields_module.MarketingCampaignFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingCampaignFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MarketingCampaign:
@@ -3058,8 +3060,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.MarketingCampaignConnectionFields
-        ] = fields_module.MarketingCampaignConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingCampaignConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.MarketingCampaignConnection]:
@@ -3091,8 +3093,8 @@ class Cinnamon(BaseSyncCinnamon):
             inputs.MarketingCampaignSyncInput, None, CinnamonUndefined
         ] = CinnamonUndefined,
         fields: List[
-            fields_module.MarketingCampaignFields
-        ] = fields_module.MarketingCampaignFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingCampaignFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MarketingCampaign:
@@ -3115,8 +3117,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         last_change_date: datetime,
         fields: List[
-            fields_module.MarketingCampaignFields
-        ] = fields_module.MarketingCampaignFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketingCampaignFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MarketingCampaign:
@@ -3138,8 +3140,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -3161,8 +3163,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.MarketplaceInput,
         fields: List[
-            fields_module.MarketplaceFields
-        ] = fields_module.MarketplaceFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketplaceFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Marketplace:
@@ -3185,8 +3187,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.MarketplaceUpdateInput,
         fields: List[
-            fields_module.MarketplaceFields
-        ] = fields_module.MarketplaceFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketplaceFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Marketplace:
@@ -3211,8 +3213,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.MarketplaceConnectionFields
-        ] = fields_module.MarketplaceConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MarketplaceConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.MarketplaceConnection]:
@@ -3241,8 +3243,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -3264,8 +3266,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.MediaChannelCreateInput,
         fields: List[
-            fields_module.MediaChannelFields
-        ] = fields_module.MediaChannelFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MediaChannelFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MediaChannel:
@@ -3287,8 +3289,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.MediaChannelImportInput,
         fields: List[
-            fields_module.MediaChannelFields
-        ] = fields_module.MediaChannelFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MediaChannelFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MediaChannel:
@@ -3311,8 +3313,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.MediaChannelUpdateInput,
         fields: List[
-            fields_module.MediaChannelFields
-        ] = fields_module.MediaChannelFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MediaChannelFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.MediaChannel:
@@ -3337,8 +3339,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.MediaChannelConnectionFields
-        ] = fields_module.MediaChannelConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.MediaChannelConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.MediaChannelConnection]:
@@ -3367,8 +3369,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -3391,8 +3393,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.NotificationUpdateInput,
         fields: List[
-            fields_module.NotificationFields
-        ] = fields_module.NotificationFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.NotificationFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Notification:
@@ -3416,8 +3418,8 @@ class Cinnamon(BaseSyncCinnamon):
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.NotificationConnectionFields
-        ] = fields_module.NotificationConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.NotificationConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.NotificationConnection]:
@@ -3441,8 +3443,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.OrganizationInput,
         fields: List[
-            fields_module.OrganizationFields
-        ] = fields_module.OrganizationFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.OrganizationFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Organization:
@@ -3465,8 +3467,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.OrganizationUpdateInput,
         fields: List[
-            fields_module.OrganizationFields
-        ] = fields_module.OrganizationFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.OrganizationFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Organization:
@@ -3491,8 +3493,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.OrganizationConnectionFields
-        ] = fields_module.OrganizationConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.OrganizationConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.OrganizationConnection]:
@@ -3521,8 +3523,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -3544,8 +3546,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.ProductInput,
         fields: List[
-            fields_module.ProductFields
-        ] = fields_module.ProductFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.ProductFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Product:
@@ -3568,8 +3570,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.ProductUpdateInput,
         fields: List[
-            fields_module.ProductFields
-        ] = fields_module.ProductFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.ProductFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Product:
@@ -3594,8 +3596,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.ProductConnectionFields
-        ] = fields_module.ProductConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.ProductConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.ProductConnection]:
@@ -3620,8 +3622,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -3643,8 +3645,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.RequestResetPasswordInput,
         fields: List[
-            fields_module.RequestResultFields
-        ] = fields_module.RequestResultFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.RequestResultFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.RequestResult:
@@ -3666,8 +3668,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.ResetPasswordInput,
         fields: List[
-            fields_module.UserFields
-        ] = fields_module.UserFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.UserFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.User:
@@ -3689,8 +3691,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.UserUpdateInput,
         fields: List[
-            fields_module.UserFields
-        ] = fields_module.UserFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.UserFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.User:
@@ -3710,8 +3712,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.VendorInput,
         fields: List[
-            fields_module.VendorFields
-        ] = fields_module.VendorFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Vendor:
@@ -3734,8 +3736,8 @@ class Cinnamon(BaseSyncCinnamon):
         id: str,
         input: inputs.VendorUpdateInput,
         fields: List[
-            fields_module.VendorFields
-        ] = fields_module.VendorFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Vendor:
@@ -3760,8 +3762,8 @@ class Cinnamon(BaseSyncCinnamon):
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
         show_deleted: Union[bool, None, CinnamonUndefined] = CinnamonUndefined,
         fields: List[
-            fields_module.VendorConnectionFields
-        ] = fields_module.VendorConnectionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorConnectionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> Iterable[objects.VendorConnection]:
@@ -3786,8 +3788,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:
@@ -3809,8 +3811,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.VendorTokenInput,
         fields: List[
-            fields_module.VendorTokenFields
-        ] = fields_module.VendorTokenFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorTokenFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.VendorToken:
@@ -3832,8 +3834,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.LoginVendorInput,
         fields: List[
-            fields_module.VendorTokenFields
-        ] = fields_module.VendorTokenFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorTokenFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.VendorToken:
@@ -3853,8 +3855,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         input: inputs.SetVendorPasswordInput,
         fields: List[
-            fields_module.VendorTokenFields
-        ] = fields_module.VendorTokenFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.VendorTokenFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.VendorToken:
@@ -3876,8 +3878,8 @@ class Cinnamon(BaseSyncCinnamon):
         self,
         id: str,
         fields: List[
-            fields_module.DeletionFields
-        ] = fields_module.DeletionFields._default_fields(),
+            Union[QueryField, QueryFieldSet, str]
+        ] = fields_module.DeletionFields._sdk_default_fields,
         headers: Union[dict, None] = None,
         token: Union[str, None] = None,
     ) -> objects.Deletion:

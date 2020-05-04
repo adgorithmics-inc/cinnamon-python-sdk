@@ -15,9 +15,14 @@ class TestQueryBuilder(unittest.TestCase):
                 MarketingCampaignFields.id,
                 MarketingCampaignFields.run_time_spec,
                 MarketingCampaignFields.gcpx.id,
+                MarketingCampaignFields.gcpx.price,
+                MarketingCampaignFields.gcpx.campaign_template.id,
+                MarketingCampaignFields.gcpx.campaign_template.name,
+                "tarst",
+                MarketingCampaignFields.products.id,
             ],
         )
         self.assertEqual(
             api.mock_calls[0][2]["query"],
-            "query($id: ObjectId!) { marketingCampaign(id: $id) { id runTimeSpec GCPX{id}  } }",
+            "query($id: ObjectId!) { marketingCampaign(id: $id) { tarst id runTimeSpec GCPX{id price campaignTemplate{id name}} products{edges{node{id}}}  } }",
         )

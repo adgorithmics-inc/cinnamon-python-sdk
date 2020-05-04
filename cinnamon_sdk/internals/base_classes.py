@@ -5,7 +5,7 @@ import requests
 import copy
 import datetime
 import pytz
-from typing import Union, List, Any, Iterable
+from typing import Union, Any, Iterable
 from enum import Enum
 from requests import Response
 
@@ -104,16 +104,6 @@ class BaseCinnamonField:
                 cls._get_core_value(value) for value in api_value
             )
         return cls._get_core_value(api_value)
-
-
-class BaseCinnamonFieldsEnum:
-    @classmethod
-    def _default_fields(cls) -> List[str]:
-        return [
-            getattr(cls, field)
-            for field in dir(cls)
-            if isinstance(getattr(cls, field), str) and not field.startswith("_")
-        ]
 
 
 class BaseCinnamonInput:
@@ -275,6 +265,18 @@ class BaseCinnamon:
     ) -> Response:
         raise NotImplementedError
 
+    def _field_tree_recursion(self, branch_name: str, branch: dict) -> str:
+        fields = []
+        for leaf_name, leaf in branch.items():
+            if isinstance(leaf, dict):
+                fields.append(self._field_tree_recursion(leaf_name, leaf))
+            else:
+                fields.append(leaf_name)
+        fields_str = " ".join(fields)
+        if branch_name:
+            return f"{branch_name}{{{fields_str}}}"
+        return fields_str + " "
+
     def _query_builder(
         self,
         query_type: str,
@@ -284,14 +286,23 @@ class BaseCinnamon:
         argument_legend: Any,
         is_paged: bool,
     ) -> dict:
-        fields_str = ""
+        fields_list = []
+        fields_tree = {}
         for field in fields:
             if isinstance(field, Enum):
-                fields_str += field.value + " "
+                fields_list.append(field.value)
+            elif isinstance(field, QueryField):
+                pydash.set_(fields_tree, str(field), field)
+            elif isinstance(field, QueryFieldSet):
+                for default_field in field._sdk_default_fields:
+                    pydash.set_(fields_tree, str(field), field)
             elif isinstance(field, str):
-                fields_str += field + " "
+                fields_list.append(field)
             else:
                 raise ValueError(f"Invalid field: {field}")
+        if fields_tree:
+            fields_list.append(self._field_tree_recursion("", fields_tree))
+        fields_str = " ".join(fields_list)
 
         query_vars = []
         call_vars = []
@@ -382,3 +393,38 @@ class BaseSyncCinnamon(BaseCinnamon):
         time.sleep(self.retry_sleep_time)
         self.retry_count += 1
         return self._api(query, variables, headers, token)
+
+
+class QueryField:
+    def __init__(self, api_name, prefix=""):
+        self.api_name = api_name
+        self.prefix = prefix
+
+    def __str__(self):
+        return f"{self.prefix}{self.api_name}"
+
+
+class QueryFieldSet:
+    _sdk_prefix: str
+    _sdk_is_paged: bool
+    _sdk_default_fields: list
+    _sdk_default_field_names: list
+
+    def __init__(self, prefix: str = "") -> None:
+        self._sdk_prefix = prefix
+        self._sdk_is_paged = prefix.endswith("edges.node.")
+        if self.__class__ != QueryFieldSet:
+            self._sdk_default_fields = [
+                getattr(self, field) for field in self._sdk_default_field_names
+            ]
+
+    def __getattribute__(self, name: str) -> Any:
+        attrib = super().__getattribute__(name)
+        if isinstance(attrib, QueryField):
+            return QueryField(attrib.api_name, self._sdk_prefix)
+        return attrib
+
+    def _sdk_embed(self, child_class: "QueryFieldSet", prefix: str) -> "QueryFieldSet":
+        return child_class(
+            prefix=f"{self._sdk_prefix}{prefix}" if self._sdk_prefix else prefix
+        )

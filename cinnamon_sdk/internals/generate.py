@@ -3,7 +3,7 @@ import typing
 import itertools
 import black
 from enum import Enum
-from typing import List
+from typing import List, Union
 
 from .base_classes import BaseSyncCinnamon, BaseCinnamonField
 from . import scalars
@@ -331,70 +331,96 @@ class PythonCodeGenerator:
 
         return black.format_str(all_code, mode=BLACK_MODE)
 
-    def _get_field_class_for_object(
-        self,
-        name: str,
-        gql_object: GenericSchemaObject,
-        prefixes: List[str] = [],
-        complexity: int = 0,
-    ) -> List[str]:
-        hide_on_attribute = next(
+    def _get_node_object(
+        self, target_object: GenericSchemaObject
+    ) -> Union[GenericSchemaObject, None]:
+        node = next(
             (
-                gql_field
-                for gql_field in gql_object.attributes
-                if gql_field.api_name in ("edges", "node")
+                nodes_gql_field
+                for nodes_gql_field in target_object.attributes
+                if nodes_gql_field.api_name == "node"
             ),
             None,
         )
-        if hide_on_attribute:
-            return self._get_field_class_for_object(
-                name,
-                self.objects_by_name[hide_on_attribute.api_kind_name],
-                prefixes + [hide_on_attribute.api_name],
-                complexity,
-            )
+        return self.objects_by_name[node.api_kind_name] if node else None
 
+    def _get_node_object_if_edges(
+        self, target_object: GenericSchemaObject
+    ) -> Union[GenericSchemaObject, None]:
+        edges = next(
+            (
+                edges_gql_field
+                for edges_gql_field in target_object.attributes
+                if edges_gql_field.api_name == "edges"
+            ),
+            None,
+        )
+        return (
+            self._get_node_object(self.objects_by_name[edges.api_kind_name])
+            if edges
+            else None
+        )
+
+    def _get_field_class_for_object(
+        self, name: str, gql_object: GenericSchemaObject,
+    ) -> List[str]:
         fields = []
-        object_fields = []
-        prefix = "{".join(prefixes)
-        if prefix:
-            prefix += "{"
-        suffix = "}" * len(prefixes)
+        default_fields = []
         for gql_field in gql_object.attributes:
-            if gql_field.api_kind == "OBJECT" and complexity >= MAX_COMPLEXITY:
-                continue
-            elif gql_field.api_kind == "OBJECT":
-                object_fields.append(
-                    self._get_field_class_for_object(
-                        gql_field.python_name,
-                        self.objects_by_name[gql_field.api_kind_name],
-                        prefixes + [gql_field.api_name],
-                        complexity + 1,
-                    )
+            if gql_field.api_kind == "OBJECT":
+                target_object = self.objects_by_name[gql_field.api_kind_name]
+                node = self._get_node_object_if_edges(target_object)
+                field_set_class = (
+                    f"_{node.name}Base" if node else f"_{target_object.name}Base"
                 )
+                prefix = f"{gql_field.api_name}."
+                if node:
+                    prefix += "edges.node."
+                fields += [
+                    "    @property",
+                    "    @lru_cache()",
+                    f'    def {gql_field.python_name}(self) -> "{field_set_class}":',
+                    f"        return self._sdk_embed({field_set_class}, {repr(prefix)})",
+                ]
             else:
+                default_fields.append(gql_field.python_name)
                 fields.append(
-                    f'{gql_field.python_name} = r"{prefix}{gql_field.api_name}{suffix}"'
+                    f"    {gql_field.python_name} = QueryField('{gql_field.api_name}')"
                 )
 
-        if not fields:
-            fields.append("pass")
-
-        indent = "    " * complexity
-        code = f"{indent}class {name}(BaseCinnamonFieldsEnum):\n"
-        code += f"{indent}    " + f"\n{indent}    ".join(fields) + "\n"
-        code += "\n".join(object_fields)
+        code = f"class _{name}Base(QueryFieldSet):\n"
+        code += f"    _sdk_default_field_names = {repr(default_fields)}\n"
+        code += "\n".join(fields)
+        code += "\n"
         return code
 
     def fields_classes(self) -> str:
         all_code = ""
+        all_base_instances = []
         all_object_names_list = []
+        all_connections = []
         for gql_object in self.schema.objects:
-            all_code += self._get_field_class_for_object(
-                f"{gql_object.name}Fields", gql_object
-            )
-            all_object_names_list.append(f"{gql_object.name}Fields")
+            has_node_in_edges = self._get_node_object_if_edges(gql_object)
+            if has_node_in_edges:
+                all_connections.append(
+                    f"{gql_object.name}Fields = _{has_node_in_edges.name}Base('edges.node.')"
+                )
+                all_object_names_list.append(f"{gql_object.name}Fields")
+            elif self._get_node_object(gql_object):
+                pass
+            else:
+                all_code += self._get_field_class_for_object(
+                    gql_object.name, gql_object
+                )
+                all_base_instances.append(
+                    f"{gql_object.name}Fields = _{gql_object.name}Base()"
+                )
+                all_object_names_list.append(f"{gql_object.name}Fields")
 
+        all_code += "\n".join(all_base_instances)
+        all_code += "\n"
+        all_code += "\n".join(all_connections)
+        all_code += "\n"
         all_code += f"__all__ = {repr(all_object_names_list)}\n"
 
         return black.format_str(all_code, mode=BLACK_MODE)
@@ -470,7 +496,7 @@ class PythonCodeGenerator:
             fields_class = f"fields_module.{query.return_type.api_kind_name}Fields"
             args.extend(
                 [
-                    f"fields: List[{fields_class}] = {fields_class}._default_fields()",
+                    f"fields: List[Union[QueryField, QueryFieldSet, str]] = {fields_class}._sdk_default_fields",
                     "headers: Union[dict, None] = None",
                     "token: Union[str, None] = None",
                 ]

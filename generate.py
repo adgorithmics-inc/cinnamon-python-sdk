@@ -29,7 +29,8 @@ with open(objects_filename, mode="w") as f:
 print("Updating fields.py...")
 fields_filename = os.path.join("cinnamon_sdk", "fields.py")
 with open(fields_filename, mode="w") as f:
-    f.write("from .internals.base_classes import BaseCinnamonFieldsEnum\n\n")
+    f.write("from functools import lru_cache\n")
+    f.write("from .internals.base_classes import QueryFieldSet, QueryField\n\n")
     f.write(generator.fields_classes())
 
 print("Updating inputs.py...")
@@ -55,7 +56,9 @@ functions_filename = os.path.join("cinnamon_sdk", "cinnamon.py")
 with open(functions_filename, mode="w") as f:
     f.write("from typing import Union, List, Iterable\n")
     f.write("from datetime import datetime\n")
-    f.write("from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField\n")
+    f.write(
+        "from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField, QueryFieldSet, QueryField\n"
+    )
     f.write("from .internals.constants import CinnamonUndefined\n")
     f.write("from .internals import scalars\n")
     f.write("from . import fields as fields_module\n")
