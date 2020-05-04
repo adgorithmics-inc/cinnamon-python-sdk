@@ -162,10 +162,10 @@ class BaseCinnamon:
     def is_vendor_token(token: str) -> bool:
         return len(token) == VENDOR_TOKEN_LENGTH
 
-    def _network_request(self, url: str, headers: dict, body: str) -> Response:
+    def _network_request(self, url: str, headers: dict, data: str) -> Response:
         raise NotImplementedError
 
-    def _refresh_login(self) -> None:
+    def _refresh_login(self) -> Union[str, None]:
         result = self._api(
             """
             mutation($input: RefreshTokenInput!) {
@@ -180,8 +180,9 @@ class BaseCinnamon:
         if result["token"] and result["refreshToken"]:
             self.token = result.token
             self.refresh_token = result.refresh_token
+            return self.token
 
-        return result
+        return None
 
     def _api(
         self,
@@ -206,7 +207,9 @@ class BaseCinnamon:
             if variables:
                 data["variables"] = variables
             response = self._network_request(
-                url=self.url, headers=send_headers, data=json.dumps(data),
+                url=self.url,
+                headers=send_headers,
+                data=json.dumps(data, cls=CinnamonJSONEncoder),
             )
 
             try:
@@ -338,7 +341,7 @@ class BaseCinnamon:
         self.retry_count = 0
         return self._api(query, variables, headers, token)
 
-    def login(self, email, password) -> dict:
+    def login(self, email, password) -> str:
         result = self.api(
             query=str(
                 "mutation($input: UserLoginInput!) {"
@@ -351,7 +354,7 @@ class BaseCinnamon:
         )["data"]["login"]
         self.token = result["token"]
         self.refresh_token = result["refreshToken"]
-        return result
+        return self.token
 
     def iterate_edges(
         self,
