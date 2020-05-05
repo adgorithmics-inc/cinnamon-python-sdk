@@ -16,6 +16,7 @@ ITERABLE_TO_TYPE_HINT = {
 }
 BLACK_MODE = black.FileMode()
 MAX_COMPLEXITY = 3
+# camelCase as these queries come from the server
 EXCLUDE_QUERIES = [
     "login",
     "refreshLogin",
@@ -23,6 +24,8 @@ EXCLUDE_QUERIES = [
     "entitlements",
     "notifications",
     "results",
+    "updateEntitlements",
+    "updateNotifications",
 ]
 PAGING_ARGUMENTS = ["first", "last", "after", "before"]
 

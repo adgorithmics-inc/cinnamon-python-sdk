@@ -890,29 +890,6 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_entitlements:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "EntitlementUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
-        class sort(BaseCinnamonField):
-            api_name = "sort"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "SortInput"
-            python_iterable = None
-            python_name = "sort"
-
-        class filter(BaseCinnamonField):
-            api_name = "filter"
-            api_kind = "SCALAR"
-            api_kind_name = "FilterInput"
-            python_iterable = None
-            python_name = "filter"
-            scalar = scalars.FilterInput
-
     class delete_entitlement:
         class id(BaseCinnamonField):
             api_name = "id"
@@ -1170,29 +1147,6 @@ class _ARGUMENT_LEGENDS:
             api_kind_name = "NotificationUpdateInput"
             python_iterable = None
             python_name = "input"
-
-    class update_notifications:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "NotificationUpdateInput"
-            python_iterable = None
-            python_name = "input"
-
-        class sort(BaseCinnamonField):
-            api_name = "sort"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "SortInput"
-            python_iterable = None
-            python_name = "sort"
-
-        class filter(BaseCinnamonField):
-            api_name = "filter"
-            api_kind = "SCALAR"
-            api_kind_name = "FilterInput"
-            python_iterable = None
-            python_name = "filter"
-            scalar = scalars.FilterInput
 
     class create_organization:
         class input(BaseCinnamonField):
@@ -2796,33 +2750,6 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_entitlements(
-        self,
-        input: inputs.EntitlementUpdateInput,
-        sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
-        filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
-        fields: List[
-            Union[QueryField, QueryFieldSet, str]
-        ] = fields_module.EntitlementConnectionFields._sdk_default_fields,
-        headers: Union[dict, None] = None,
-        token: Union[str, None] = None,
-    ) -> Iterable[objects.EntitlementConnection]:
-        query_args = self._query_builder(
-            "mutation",
-            "updateEntitlements",
-            fields,
-            {"input": input, "sort": sort, "filter": filter,},
-            _ARGUMENT_LEGENDS.update_entitlements,
-            True,
-        )
-        return self.iterate_edges(
-            objects.EntitlementConnection,
-            query_args,
-            headers,
-            token,
-            "updateEntitlements",
-        )
-
     def delete_entitlement(
         self,
         id: str,
@@ -3250,33 +3177,6 @@ class Cinnamon(BaseSyncCinnamon):
             self.api(headers=headers, token=token, **query_args)["data"][
                 "updateNotification"
             ],
-        )
-
-    def update_notifications(
-        self,
-        input: inputs.NotificationUpdateInput,
-        sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
-        filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
-        fields: List[
-            Union[QueryField, QueryFieldSet, str]
-        ] = fields_module.NotificationConnectionFields._sdk_default_fields,
-        headers: Union[dict, None] = None,
-        token: Union[str, None] = None,
-    ) -> Iterable[objects.NotificationConnection]:
-        query_args = self._query_builder(
-            "mutation",
-            "updateNotifications",
-            fields,
-            {"input": input, "sort": sort, "filter": filter,},
-            _ARGUMENT_LEGENDS.update_notifications,
-            True,
-        )
-        return self.iterate_edges(
-            objects.NotificationConnection,
-            query_args,
-            headers,
-            token,
-            "updateNotifications",
         )
 
     def create_organization(
