@@ -16,7 +16,7 @@ ITERABLE_TO_TYPE_HINT = {
 }
 BLACK_MODE = black.FileMode()
 MAX_COMPLEXITY = 3
-EXCLUDE_QUERIES = ["login", "refresh_login", "me"]
+EXCLUDE_QUERIES = ["login", "refreshLogin", "me"]
 PAGING_ARGUMENTS = ["first", "last", "after", "before"]
 
 

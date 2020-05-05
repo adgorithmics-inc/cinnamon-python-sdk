@@ -561,14 +561,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "filter"
             scalar = scalars.FilterInput
 
-    class refresh_login:
-        class input(BaseCinnamonField):
-            api_name = "input"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "RefreshTokenInput"
-            python_iterable = None
-            python_name = "input"
-
     class create_catalog:
         class input(BaseCinnamonField):
             api_name = "input"
@@ -2288,29 +2280,6 @@ class Cinnamon(BaseSyncCinnamon):
         )
         return self.iterate_edges(
             objects.VendorTokenConnection, query_args, headers, token, "vendorTokens",
-        )
-
-    def refresh_login(
-        self,
-        input: inputs.RefreshTokenInput,
-        fields: List[
-            Union[QueryField, QueryFieldSet, str]
-        ] = fields_module.TokenFields._sdk_default_fields,
-        headers: Union[dict, None] = None,
-        token: Union[str, None] = None,
-    ) -> objects.Token:
-        query_args = self._query_builder(
-            "mutation",
-            "refreshLogin",
-            fields,
-            {"input": input,},
-            _ARGUMENT_LEGENDS.refresh_login,
-            False,
-        )
-        return objects.Token(
-            self.api(headers=headers, token=token, **query_args)["data"][
-                "refreshLogin"
-            ],
         )
 
     def create_catalog(
