@@ -74,6 +74,12 @@ class BaseCinnamonObject:
         return self._to_dict("api_name")
 
 
+class BaseCinnamonEdgesObject:
+    def __iter__(self):
+        for edge in self.edges:
+            yield edge.node
+
+
 class BaseCinnamonField:
     api_name: str
     api_kind: str
@@ -419,17 +425,10 @@ class QueryField:
 
 class QueryFieldSet:
     _sdk_prefix: str
-    _sdk_is_paged: bool
     _sdk_default_fields: list
-    _sdk_default_field_names: list
 
     def __init__(self, prefix: str = "") -> None:
         self._sdk_prefix = prefix
-        self._sdk_is_paged = prefix.endswith("edges.node.")
-        if self.__class__ != QueryFieldSet:
-            self._sdk_default_fields = [
-                getattr(self, field) for field in self._sdk_default_field_names
-            ]
 
     def __getattribute__(self, name: str) -> Any:
         attrib = super().__getattribute__(name)

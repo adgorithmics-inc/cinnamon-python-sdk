@@ -27,7 +27,7 @@ class TestQueryBuilder(unittest.TestCase):
                 MarketingCampaignFields.gcpx.campaign_template.id,
                 MarketingCampaignFields.gcpx.campaign_template.name,
                 "tarst",
-                MarketingCampaignFields.products.id,
+                MarketingCampaignFields.products.edges.node.id,
             ],
         )
         self.assertEqual(
@@ -40,7 +40,11 @@ class TestQueryBuilder(unittest.TestCase):
         # This tests the spacing between given QueryField and string variables for auto-paged queries
         api.return_value = {"data": {"vendors": {"edges": [{"node": {"id": 1}}]}}}
         cinna = Cinnamon(url="")
-        next(cinna.vendors(fields=[VendorConnectionFields.id, "totalCount"]))
+        next(
+            cinna.vendors_each(
+                fields=[VendorConnectionFields.edges.node.id, "totalCount"]
+            )
+        )
         self.assertEqual(
             api.mock_calls[0][2]["query"],
             "query($after: String) { vendors(after: $after) { totalCount edges{node{id}} pageInfo{endCursor hasNextPage}  } }",

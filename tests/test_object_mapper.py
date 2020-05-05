@@ -31,9 +31,10 @@ class TestObjectMapper(unittest.TestCase):
         self.assertEqual(ct.errors, errors)
 
     def test_object_mapping_nested_iterable_objects(self):
+        vendor_token = {"id": 3}
         api_data = {
             "id": 1,
-            "vendor": {"id": 2, "vendorTokens": {"edges": [{"node": {"id": 3}}]}},
+            "vendor": {"id": 2, "vendorTokens": {"edges": [{"node": vendor_token}]}},
         }
         mc = MarketingCampaign(api_data)
         self.assertTrue(isinstance(mc, MarketingCampaign))
@@ -44,6 +45,11 @@ class TestObjectMapper(unittest.TestCase):
         self.assertTrue(isinstance(mc.vendor.vendor_tokens.edges, list))
         self.assertTrue(isinstance(mc.vendor.vendor_tokens.edges[0].node, VendorToken))
         self.assertTrue(mc.vendor.vendor_tokens.edges[0].node.id, 3)
+
+        arr = [token for token in mc.vendor.vendor_tokens]
+        self.assertEqual(len(arr), 1)
+        self.assertTrue(isinstance(arr[0], VendorToken))
+        self.assertTrue(arr[0].id, 3)
 
     def test_interprets_datetime(self):
         api_data = {

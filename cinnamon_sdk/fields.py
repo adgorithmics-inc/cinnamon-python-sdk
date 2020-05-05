@@ -2,18 +2,18 @@ from functools import lru_cache
 from .internals.base_classes import QueryFieldSet, QueryField
 
 class _CampaignTemplateBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "description",
-        "platform",
-        "remote_id",
-        "system_status",
-        "errors",
-        "warnings",
-        "kpi",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("description"),
+        QueryField("platform"),
+        QueryField("remoteId"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
+        QueryField("kpi"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -34,13 +34,13 @@ class _CampaignTemplateBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def marketing_campaigns(self) -> "_MarketingCampaignBase":
-        return self._sdk_embed(_MarketingCampaignBase, "marketingCampaigns.edges.node.")
+    def marketing_campaigns(self) -> "_MarketingCampaignConnectionBase":
+        return self._sdk_embed(_MarketingCampaignConnectionBase, "marketingCampaigns.")
 
     @property
     @lru_cache()
-    def gcpx_history(self) -> "_GCPXBase":
-        return self._sdk_embed(_GCPXBase, "GCPXHistory.edges.node.")
+    def gcpx_history(self) -> "_GCPXConnectionBase":
+        return self._sdk_embed(_GCPXConnectionBase, "GCPXHistory.")
 
     @property
     @lru_cache()
@@ -49,17 +49,17 @@ class _CampaignTemplateBase(QueryFieldSet):
 
 
 class _MarketplaceBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "system_status",
-        "errors",
-        "warnings",
-        "currency_code",
-        "currency_symbol",
-        "currency_offset",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
+        QueryField("currencyCode"),
+        QueryField("currencySymbol"),
+        QueryField("currencyOffset"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -79,44 +79,44 @@ class _MarketplaceBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def media_channels(self) -> "_MediaChannelBase":
-        return self._sdk_embed(_MediaChannelBase, "mediaChannels.edges.node.")
+    def media_channels(self) -> "_MediaChannelConnectionBase":
+        return self._sdk_embed(_MediaChannelConnectionBase, "mediaChannels.")
 
     @property
     @lru_cache()
-    def campaign_templates(self) -> "_CampaignTemplateBase":
-        return self._sdk_embed(_CampaignTemplateBase, "campaignTemplates.edges.node.")
+    def campaign_templates(self) -> "_CampaignTemplateConnectionBase":
+        return self._sdk_embed(_CampaignTemplateConnectionBase, "campaignTemplates.")
 
     @property
     @lru_cache()
-    def vendors(self) -> "_VendorBase":
-        return self._sdk_embed(_VendorBase, "vendors.edges.node.")
+    def vendors(self) -> "_VendorConnectionBase":
+        return self._sdk_embed(_VendorConnectionBase, "vendors.")
 
     @property
     @lru_cache()
-    def vendor_tokens(self) -> "_VendorTokenBase":
-        return self._sdk_embed(_VendorTokenBase, "vendorTokens.edges.node.")
+    def vendor_tokens(self) -> "_VendorTokenConnectionBase":
+        return self._sdk_embed(_VendorTokenConnectionBase, "vendorTokens.")
 
     @property
     @lru_cache()
-    def creative_templates(self) -> "_CreativeTemplateBase":
-        return self._sdk_embed(_CreativeTemplateBase, "creativeTemplates.edges.node.")
+    def creative_templates(self) -> "_CreativeTemplateConnectionBase":
+        return self._sdk_embed(_CreativeTemplateConnectionBase, "creativeTemplates.")
 
     @property
     @lru_cache()
-    def products(self) -> "_ProductBase":
-        return self._sdk_embed(_ProductBase, "products.edges.node.")
+    def products(self) -> "_ProductConnectionBase":
+        return self._sdk_embed(_ProductConnectionBase, "products.")
 
 
 class _EntitlementResourceBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "system_status",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -128,15 +128,15 @@ class _EntitlementResourceBase(QueryFieldSet):
 
 
 class _OrganizationBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "system_status",
-        "errors",
-        "warnings",
-        "tier",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
+        QueryField("tier"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -149,25 +149,62 @@ class _OrganizationBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def users(self) -> "_UserBase":
-        return self._sdk_embed(_UserBase, "users.edges.node.")
+    def users(self) -> "_UserConnectionBase":
+        return self._sdk_embed(_UserConnectionBase, "users.")
 
     @property
     @lru_cache()
-    def marketplaces(self) -> "_MarketplaceBase":
-        return self._sdk_embed(_MarketplaceBase, "marketplaces.edges.node.")
+    def marketplaces(self) -> "_MarketplaceConnectionBase":
+        return self._sdk_embed(_MarketplaceConnectionBase, "marketplaces.")
+
+
+class _UserConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("email", "edges.node."),
+        QueryField("firstName", "edges.node."),
+        QueryField("lastName", "edges.node."),
+        QueryField("noticeOptIn", "edges.node."),
+        QueryField("newsletterOptIn", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_UserEdgeBase":
+        return self._sdk_embed(_UserEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _UserEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_UserBase":
+        return self._sdk_embed(_UserBase, "node.")
+
+    cursor = QueryField("cursor")
 
 
 class _UserBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "email",
-        "first_name",
-        "last_name",
-        "notice_opt_in",
-        "newsletter_opt_in",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("email"),
+        QueryField("firstName"),
+        QueryField("lastName"),
+        QueryField("noticeOptIn"),
+        QueryField("newsletterOptIn"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -178,31 +215,72 @@ class _UserBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def organizations(self) -> "_OrganizationBase":
-        return self._sdk_embed(_OrganizationBase, "organizations.edges.node.")
+    def organizations(self) -> "_OrganizationConnectionBase":
+        return self._sdk_embed(_OrganizationConnectionBase, "organizations.")
 
     @property
     @lru_cache()
-    def entitlements(self) -> "_EntitlementBase":
-        return self._sdk_embed(_EntitlementBase, "entitlements.edges.node.")
+    def entitlements(self) -> "_EntitlementConnectionBase":
+        return self._sdk_embed(_EntitlementConnectionBase, "entitlements.")
 
     notice_opt_in = QueryField("noticeOptIn")
     newsletter_opt_in = QueryField("newsletterOptIn")
 
 
 class _MeBase(QueryFieldSet):
-    _sdk_default_field_names = ["id", "creation_date", "last_change_date"]
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+    ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
     last_change_date = QueryField("lastChangeDate")
 
 
+class _OrganizationConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("tier", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_OrganizationEdgeBase":
+        return self._sdk_embed(_OrganizationEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _OrganizationEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_OrganizationBase":
+        return self._sdk_embed(_OrganizationBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _PageInfoBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "end_cursor",
-        "start_cursor",
-        "has_next_page",
-        "has_previous_page",
+    _sdk_default_fields = [
+        QueryField("endCursor"),
+        QueryField("startCursor"),
+        QueryField("hasNextPage"),
+        QueryField("hasPreviousPage"),
     ]
     end_cursor = QueryField("endCursor")
     start_cursor = QueryField("startCursor")
@@ -210,14 +288,49 @@ class _PageInfoBase(QueryFieldSet):
     has_previous_page = QueryField("hasPreviousPage")
 
 
+class _EntitlementConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("type", "edges.node."),
+        QueryField("permissions", "edges.node."),
+        QueryField("resource", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_EntitlementEdgeBase":
+        return self._sdk_embed(_EntitlementEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _EntitlementEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_EntitlementBase":
+        return self._sdk_embed(_EntitlementBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _EntitlementBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "type",
-        "permissions",
-        "resource",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("type"),
+        QueryField("permissions"),
+        QueryField("resource"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -233,23 +346,106 @@ class _EntitlementBase(QueryFieldSet):
     resource = QueryField("resource")
 
 
+class _MarketplaceConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("currencyCode", "edges.node."),
+        QueryField("currencySymbol", "edges.node."),
+        QueryField("currencyOffset", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_MarketplaceEdgeBase":
+        return self._sdk_embed(_MarketplaceEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _MarketplaceEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_MarketplaceBase":
+        return self._sdk_embed(_MarketplaceBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
+class _MediaChannelConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("platform", "edges.node."),
+        QueryField("remoteId", "edges.node."),
+        QueryField("remoteState", "edges.node."),
+        QueryField("currencyCode", "edges.node."),
+        QueryField("currencySymbol", "edges.node."),
+        QueryField("currencyOffset", "edges.node."),
+        QueryField("timezone", "edges.node."),
+        QueryField("tokenStatus", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_MediaChannelEdgeBase":
+        return self._sdk_embed(_MediaChannelEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _MediaChannelEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_MediaChannelBase":
+        return self._sdk_embed(_MediaChannelBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _MediaChannelBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "system_status",
-        "errors",
-        "warnings",
-        "platform",
-        "remote_id",
-        "remote_state",
-        "currency_code",
-        "currency_symbol",
-        "currency_offset",
-        "timezone",
-        "token_status",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
+        QueryField("platform"),
+        QueryField("remoteId"),
+        QueryField("remoteState"),
+        QueryField("currencyCode"),
+        QueryField("currencySymbol"),
+        QueryField("currencyOffset"),
+        QueryField("timezone"),
+        QueryField("tokenStatus"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -269,8 +465,8 @@ class _MediaChannelBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def catalogs(self) -> "_CatalogBase":
-        return self._sdk_embed(_CatalogBase, "catalogs.edges.node.")
+    def catalogs(self) -> "_CatalogConnectionBase":
+        return self._sdk_embed(_CatalogConnectionBase, "catalogs.")
 
     @property
     @lru_cache()
@@ -278,21 +474,63 @@ class _MediaChannelBase(QueryFieldSet):
         return self._sdk_embed(_MarketplaceBase, "marketplace.")
 
 
+class _CatalogConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("catalogType", "edges.node."),
+        QueryField("remoteId", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("remoteState", "edges.node."),
+        QueryField("dataFeedId", "edges.node."),
+        QueryField("externalEventSourceIds", "edges.node."),
+        QueryField("productSource", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_CatalogEdgeBase":
+        return self._sdk_embed(_CatalogEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _CatalogEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_CatalogBase":
+        return self._sdk_embed(_CatalogBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _CatalogBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "catalog_type",
-        "remote_id",
-        "system_status",
-        "remote_state",
-        "data_feed_id",
-        "external_event_source_ids",
-        "product_source",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("catalogType"),
+        QueryField("remoteId"),
+        QueryField("systemStatus"),
+        QueryField("remoteState"),
+        QueryField("dataFeedId"),
+        QueryField("externalEventSourceIds"),
+        QueryField("productSource"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -315,25 +553,67 @@ class _CatalogBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def products(self) -> "_ProductBase":
-        return self._sdk_embed(_ProductBase, "products.edges.node.")
+    def products(self) -> "_ProductConnectionBase":
+        return self._sdk_embed(_ProductConnectionBase, "products.")
+
+
+class _ProductConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("resultsSource", "edges.node."),
+        QueryField("kpi", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("sku", "edges.node."),
+        QueryField("remoteState", "edges.node."),
+        QueryField("metadata", "edges.node."),
+        QueryField("imported", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_ProductEdgeBase":
+        return self._sdk_embed(_ProductEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _ProductEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_ProductBase":
+        return self._sdk_embed(_ProductBase, "node.")
+
+    cursor = QueryField("cursor")
 
 
 class _ProductBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "results_source",
-        "kpi",
-        "system_status",
-        "errors",
-        "warnings",
-        "name",
-        "sku",
-        "remote_state",
-        "metadata",
-        "imported",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("resultsSource"),
+        QueryField("kpi"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
+        QueryField("name"),
+        QueryField("sku"),
+        QueryField("remoteState"),
+        QueryField("metadata"),
+        QueryField("imported"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -357,13 +637,13 @@ class _ProductBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def results(self) -> "_ResultBase":
-        return self._sdk_embed(_ResultBase, "results.edges.node.")
+    def results(self) -> "_ResultConnectionBase":
+        return self._sdk_embed(_ResultConnectionBase, "results.")
 
     @property
     @lru_cache()
-    def marketing_campaigns(self) -> "_MarketingCampaignBase":
-        return self._sdk_embed(_MarketingCampaignBase, "marketingCampaigns.edges.node.")
+    def marketing_campaigns(self) -> "_MarketingCampaignConnectionBase":
+        return self._sdk_embed(_MarketingCampaignConnectionBase, "marketingCampaigns.")
 
     @property
     @lru_cache()
@@ -372,15 +652,15 @@ class _ProductBase(QueryFieldSet):
 
 
 class _ResultResourceBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "results_source",
-        "kpi",
-        "system_status",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("resultsSource"),
+        QueryField("kpi"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -399,14 +679,14 @@ class _ResultResourceBase(QueryFieldSet):
 
 
 class _VendorBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "system_status",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -423,22 +703,56 @@ class _VendorBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def vendor_tokens(self) -> "_VendorTokenBase":
-        return self._sdk_embed(_VendorTokenBase, "vendorTokens.edges.node.")
+    def vendor_tokens(self) -> "_VendorTokenConnectionBase":
+        return self._sdk_embed(_VendorTokenConnectionBase, "vendorTokens.")
 
     @property
     @lru_cache()
-    def products(self) -> "_ProductBase":
-        return self._sdk_embed(_ProductBase, "products.edges.node.")
+    def products(self) -> "_ProductConnectionBase":
+        return self._sdk_embed(_ProductConnectionBase, "products.")
+
+
+class _VendorTokenConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("token", "edges.node."),
+        QueryField("email", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_VendorTokenEdgeBase":
+        return self._sdk_embed(_VendorTokenEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _VendorTokenEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_VendorTokenBase":
+        return self._sdk_embed(_VendorTokenBase, "node.")
+
+    cursor = QueryField("cursor")
 
 
 class _VendorTokenBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "token",
-        "email",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("token"),
+        QueryField("email"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -458,16 +772,53 @@ class _VendorTokenBase(QueryFieldSet):
     email = QueryField("email")
 
 
+class _ResultConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("date", "edges.node."),
+        QueryField("type", "edges.node."),
+        QueryField("breakdownType", "edges.node."),
+        QueryField("resource", "edges.node."),
+        QueryField("breakdown", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_ResultEdgeBase":
+        return self._sdk_embed(_ResultEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _ResultEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_ResultBase":
+        return self._sdk_embed(_ResultBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _ResultBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "date",
-        "type",
-        "breakdown_type",
-        "resource",
-        "breakdown",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("date"),
+        QueryField("type"),
+        QueryField("breakdownType"),
+        QueryField("resource"),
+        QueryField("breakdown"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -491,13 +842,13 @@ class _ResultBase(QueryFieldSet):
 
 
 class _ResultAnalyticsBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "results",
-        "impressions",
-        "clicks",
-        "spend",
-        "purchases",
-        "purchases_value",
+    _sdk_default_fields = [
+        QueryField("results"),
+        QueryField("impressions"),
+        QueryField("clicks"),
+        QueryField("spend"),
+        QueryField("purchases"),
+        QueryField("purchasesValue"),
     ]
     results = QueryField("results")
     impressions = QueryField("impressions")
@@ -507,25 +858,71 @@ class _ResultAnalyticsBase(QueryFieldSet):
     purchases_value = QueryField("purchasesValue")
 
 
+class _MarketingCampaignConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("resultsSource", "edges.node."),
+        QueryField("kpi", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("status", "edges.node."),
+        QueryField("creativeSpec", "edges.node."),
+        QueryField("runTimeSpec", "edges.node."),
+        QueryField("locationSpec", "edges.node."),
+        QueryField("conversionSpec", "edges.node."),
+        QueryField("startDate", "edges.node."),
+        QueryField("endDate", "edges.node."),
+        QueryField("delivering", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_MarketingCampaignEdgeBase":
+        return self._sdk_embed(_MarketingCampaignEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _MarketingCampaignEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_MarketingCampaignBase":
+        return self._sdk_embed(_MarketingCampaignBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _MarketingCampaignBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "results_source",
-        "kpi",
-        "system_status",
-        "errors",
-        "warnings",
-        "name",
-        "status",
-        "creative_spec",
-        "run_time_spec",
-        "location_spec",
-        "conversion_spec",
-        "start_date",
-        "end_date",
-        "delivering",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("resultsSource"),
+        QueryField("kpi"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
+        QueryField("name"),
+        QueryField("status"),
+        QueryField("creativeSpec"),
+        QueryField("runTimeSpec"),
+        QueryField("locationSpec"),
+        QueryField("conversionSpec"),
+        QueryField("startDate"),
+        QueryField("endDate"),
+        QueryField("delivering"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -559,13 +956,13 @@ class _MarketingCampaignBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def marketing_ads(self) -> "_MarketingAdBase":
-        return self._sdk_embed(_MarketingAdBase, "marketingAds.edges.node.")
+    def marketing_ads(self) -> "_MarketingAdConnectionBase":
+        return self._sdk_embed(_MarketingAdConnectionBase, "marketingAds.")
 
     @property
     @lru_cache()
-    def products(self) -> "_ProductBase":
-        return self._sdk_embed(_ProductBase, "products.edges.node.")
+    def products(self) -> "_ProductConnectionBase":
+        return self._sdk_embed(_ProductConnectionBase, "products.")
 
     @property
     @lru_cache()
@@ -584,23 +981,23 @@ class _MarketingCampaignBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def results(self) -> "_ResultBase":
-        return self._sdk_embed(_ResultBase, "results.edges.node.")
+    def results(self) -> "_ResultConnectionBase":
+        return self._sdk_embed(_ResultConnectionBase, "results.")
 
     @property
     @lru_cache()
-    def notifications(self) -> "_NotificationBase":
-        return self._sdk_embed(_NotificationBase, "notifications.edges.node.")
+    def notifications(self) -> "_NotificationConnectionBase":
+        return self._sdk_embed(_NotificationConnectionBase, "notifications.")
 
 
 class _NotificationResourceBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "system_status",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -611,16 +1008,16 @@ class _NotificationResourceBase(QueryFieldSet):
 
 
 class _GCPXBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "kpi",
-        "price",
-        "start_date",
-        "end_date",
-        "min_conversions",
-        "max_conversions",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("kpi"),
+        QueryField("price"),
+        QueryField("startDate"),
+        QueryField("endDate"),
+        QueryField("minConversions"),
+        QueryField("maxConversions"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -644,21 +1041,59 @@ class _GCPXBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def marketing_campaigns(self) -> "_MarketingCampaignBase":
-        return self._sdk_embed(_MarketingCampaignBase, "marketingCampaigns.edges.node.")
+    def marketing_campaigns(self) -> "_MarketingCampaignConnectionBase":
+        return self._sdk_embed(_MarketingCampaignConnectionBase, "marketingCampaigns.")
+
+
+class _MarketingAdConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("resultsSource", "edges.node."),
+        QueryField("kpi", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("remoteId", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_MarketingAdEdgeBase":
+        return self._sdk_embed(_MarketingAdEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _MarketingAdEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_MarketingAdBase":
+        return self._sdk_embed(_MarketingAdBase, "node.")
+
+    cursor = QueryField("cursor")
 
 
 class _MarketingAdBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "results_source",
-        "kpi",
-        "system_status",
-        "errors",
-        "warnings",
-        "remote_id",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("resultsSource"),
+        QueryField("kpi"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
+        QueryField("remoteId"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -683,8 +1118,8 @@ class _MarketingAdBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def results(self) -> "_ResultBase":
-        return self._sdk_embed(_ResultBase, "results.edges.node.")
+    def results(self) -> "_ResultConnectionBase":
+        return self._sdk_embed(_ResultConnectionBase, "results.")
 
     @property
     @lru_cache()
@@ -693,24 +1128,67 @@ class _MarketingAdBase(QueryFieldSet):
 
 
 class _AdPreviewBase(QueryFieldSet):
-    _sdk_default_field_names = ["url", "dimensions", "placement"]
+    _sdk_default_fields = [
+        QueryField("url"),
+        QueryField("dimensions"),
+        QueryField("placement"),
+    ]
     url = QueryField("url")
     dimensions = QueryField("dimensions")
     placement = QueryField("placement")
 
 
+class _NotificationConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("title", "edges.node."),
+        QueryField("message", "edges.node."),
+        QueryField("status", "edges.node."),
+        QueryField("severity", "edges.node."),
+        QueryField("code", "edges.node."),
+        QueryField("source", "edges.node."),
+        QueryField("resource", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_NotificationEdgeBase":
+        return self._sdk_embed(_NotificationEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _NotificationEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_NotificationBase":
+        return self._sdk_embed(_NotificationBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _NotificationBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "title",
-        "message",
-        "status",
-        "severity",
-        "code",
-        "source",
-        "resource",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("title"),
+        QueryField("message"),
+        QueryField("status"),
+        QueryField("severity"),
+        QueryField("code"),
+        QueryField("source"),
+        QueryField("resource"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -724,17 +1202,131 @@ class _NotificationBase(QueryFieldSet):
     resource = QueryField("resource")
 
 
+class _CampaignTemplateConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("description", "edges.node."),
+        QueryField("platform", "edges.node."),
+        QueryField("remoteId", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("kpi", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_CampaignTemplateEdgeBase":
+        return self._sdk_embed(_CampaignTemplateEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _CampaignTemplateEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_CampaignTemplateBase":
+        return self._sdk_embed(_CampaignTemplateBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
+class _VendorConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_VendorEdgeBase":
+        return self._sdk_embed(_VendorEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _VendorEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_VendorBase":
+        return self._sdk_embed(_VendorBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
+class _CreativeTemplateConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("height", "edges.node."),
+        QueryField("width", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_CreativeTemplateEdgeBase":
+        return self._sdk_embed(_CreativeTemplateEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _CreativeTemplateEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_CreativeTemplateBase":
+        return self._sdk_embed(_CreativeTemplateBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _CreativeTemplateBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "height",
-        "width",
-        "system_status",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("height"),
+        QueryField("width"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -753,31 +1345,74 @@ class _CreativeTemplateBase(QueryFieldSet):
 
     @property
     @lru_cache()
-    def marketing_campaigns(self) -> "_MarketingCampaignBase":
-        return self._sdk_embed(_MarketingCampaignBase, "marketingCampaigns.edges.node.")
+    def marketing_campaigns(self) -> "_MarketingCampaignConnectionBase":
+        return self._sdk_embed(_MarketingCampaignConnectionBase, "marketingCampaigns.")
 
     @property
     @lru_cache()
-    def creative_layers(self) -> "_CreativeLayerBase":
-        return self._sdk_embed(_CreativeLayerBase, "creativeLayers.edges.node.")
+    def creative_layers(self) -> "_CreativeLayerConnectionBase":
+        return self._sdk_embed(_CreativeLayerConnectionBase, "creativeLayers.")
+
+
+class _CreativeLayerConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("height", "edges.node."),
+        QueryField("width", "edges.node."),
+        QueryField("x", "edges.node."),
+        QueryField("y", "edges.node."),
+        QueryField("order", "edges.node."),
+        QueryField("type", "edges.node."),
+        QueryField("properties", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_CreativeLayerEdgeBase":
+        return self._sdk_embed(_CreativeLayerEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _CreativeLayerEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_CreativeLayerBase":
+        return self._sdk_embed(_CreativeLayerBase, "node.")
+
+    cursor = QueryField("cursor")
 
 
 class _CreativeLayerBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "height",
-        "width",
-        "x",
-        "y",
-        "order",
-        "type",
-        "properties",
-        "system_status",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("height"),
+        QueryField("width"),
+        QueryField("x"),
+        QueryField("y"),
+        QueryField("order"),
+        QueryField("type"),
+        QueryField("properties"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -800,17 +1435,55 @@ class _CreativeLayerBase(QueryFieldSet):
         return self._sdk_embed(_CreativeTemplateBase, "creativeTemplate.")
 
 
+class _GCPXConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("kpi", "edges.node."),
+        QueryField("price", "edges.node."),
+        QueryField("startDate", "edges.node."),
+        QueryField("endDate", "edges.node."),
+        QueryField("minConversions", "edges.node."),
+        QueryField("maxConversions", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_GCPXEdgeBase":
+        return self._sdk_embed(_GCPXEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _GCPXEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_GCPXBase":
+        return self._sdk_embed(_GCPXBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _CreativeFontBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "url",
-        "properties",
-        "system_status",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("url"),
+        QueryField("properties"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -826,19 +1499,57 @@ class _CreativeFontBase(QueryFieldSet):
     @lru_cache()
     def marketplace(self) -> "_MarketplaceBase":
         return self._sdk_embed(_MarketplaceBase, "marketplace.")
+
+
+class _CreativeFontConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("url", "edges.node."),
+        QueryField("properties", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_CreativeFontEdgeBase":
+        return self._sdk_embed(_CreativeFontEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _CreativeFontEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_CreativeFontBase":
+        return self._sdk_embed(_CreativeFontBase, "node.")
+
+    cursor = QueryField("cursor")
 
 
 class _CreativeImageBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "name",
-        "url",
-        "properties",
-        "system_status",
-        "errors",
-        "warnings",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("name"),
+        QueryField("url"),
+        QueryField("properties"),
+        QueryField("systemStatus"),
+        QueryField("errors"),
+        QueryField("warnings"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -856,8 +1567,50 @@ class _CreativeImageBase(QueryFieldSet):
         return self._sdk_embed(_MarketplaceBase, "marketplace.")
 
 
+class _CreativeImageConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("url", "edges.node."),
+        QueryField("properties", "edges.node."),
+        QueryField("systemStatus", "edges.node."),
+        QueryField("errors", "edges.node."),
+        QueryField("warnings", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_CreativeImageEdgeBase":
+        return self._sdk_embed(_CreativeImageEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
+class _CreativeImageEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_CreativeImageBase":
+        return self._sdk_embed(_CreativeImageBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
 class _TokenBase(QueryFieldSet):
-    _sdk_default_field_names = ["token", "refresh_token", "expiry_date"]
+    _sdk_default_fields = [
+        QueryField("token"),
+        QueryField("refreshToken"),
+        QueryField("expiryDate"),
+    ]
     token = QueryField("token")
     refresh_token = QueryField("refreshToken")
     expiry_date = QueryField("expiryDate")
@@ -869,28 +1622,28 @@ class _TokenBase(QueryFieldSet):
 
 
 class _DeletionBase(QueryFieldSet):
-    _sdk_default_field_names = ["id"]
+    _sdk_default_fields = [QueryField("id")]
     id = QueryField("id")
 
 
 class _RequestResultBase(QueryFieldSet):
-    _sdk_default_field_names = ["result"]
+    _sdk_default_fields = [QueryField("result")]
     result = QueryField("result")
 
 
 class _MarketingCampaignSnapshotBase(QueryFieldSet):
-    _sdk_default_field_names = [
-        "id",
-        "creation_date",
-        "last_change_date",
-        "successful",
-        "name",
-        "status",
-        "creative_spec",
-        "run_time_spec",
-        "location_spec",
-        "kpi",
-        "product_ids",
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("successful"),
+        QueryField("name"),
+        QueryField("status"),
+        QueryField("creativeSpec"),
+        QueryField("runTimeSpec"),
+        QueryField("locationSpec"),
+        QueryField("kpi"),
+        QueryField("productIds"),
     ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
@@ -911,8 +1664,53 @@ class _MarketingCampaignSnapshotBase(QueryFieldSet):
     product_ids = QueryField("productIds")
 
 
+class _MarketingCampaignSnapshotEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_MarketingCampaignSnapshotBase":
+        return self._sdk_embed(_MarketingCampaignSnapshotBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
+class _MarketingCampaignSnapshotConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("successful", "edges.node."),
+        QueryField("name", "edges.node."),
+        QueryField("status", "edges.node."),
+        QueryField("creativeSpec", "edges.node."),
+        QueryField("runTimeSpec", "edges.node."),
+        QueryField("locationSpec", "edges.node."),
+        QueryField("kpi", "edges.node."),
+        QueryField("productIds", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_MarketingCampaignSnapshotEdgeBase":
+        return self._sdk_embed(_MarketingCampaignSnapshotEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
 class _SingleUseTokenBase(QueryFieldSet):
-    _sdk_default_field_names = ["id", "creation_date", "last_change_date", "token"]
+    _sdk_default_fields = [
+        QueryField("id"),
+        QueryField("creationDate"),
+        QueryField("lastChangeDate"),
+        QueryField("token"),
+    ]
     id = QueryField("id")
     creation_date = QueryField("creationDate")
     last_change_date = QueryField("lastChangeDate")
@@ -924,111 +1722,185 @@ class _SingleUseTokenBase(QueryFieldSet):
         return self._sdk_embed(_UserBase, "user.")
 
 
+class _SingleUseTokenEdgeBase(QueryFieldSet):
+    _sdk_default_fields = [QueryField("cursor")]
+
+    @property
+    @lru_cache()
+    def node(self) -> "_SingleUseTokenBase":
+        return self._sdk_embed(_SingleUseTokenBase, "node.")
+
+    cursor = QueryField("cursor")
+
+
+class _SingleUseTokenConnectionBase(QueryFieldSet):
+    _sdk_default_fields = [
+        QueryField("id", "edges.node."),
+        QueryField("creationDate", "edges.node."),
+        QueryField("lastChangeDate", "edges.node."),
+        QueryField("token", "edges.node."),
+        QueryField("totalCount"),
+    ]
+
+    @property
+    @lru_cache()
+    def edges(self) -> "_SingleUseTokenEdgeBase":
+        return self._sdk_embed(_SingleUseTokenEdgeBase, "edges.")
+
+    @property
+    @lru_cache()
+    def page_info(self) -> "_PageInfoBase":
+        return self._sdk_embed(_PageInfoBase, "pageInfo.")
+
+    total_count = QueryField("totalCount")
+
+
 CampaignTemplateFields = _CampaignTemplateBase()
 MarketplaceFields = _MarketplaceBase()
 EntitlementResourceFields = _EntitlementResourceBase()
 OrganizationFields = _OrganizationBase()
+UserConnectionFields = _UserConnectionBase()
+UserEdgeFields = _UserEdgeBase()
 UserFields = _UserBase()
 MeFields = _MeBase()
+OrganizationConnectionFields = _OrganizationConnectionBase()
+OrganizationEdgeFields = _OrganizationEdgeBase()
 PageInfoFields = _PageInfoBase()
+EntitlementConnectionFields = _EntitlementConnectionBase()
+EntitlementEdgeFields = _EntitlementEdgeBase()
 EntitlementFields = _EntitlementBase()
+MarketplaceConnectionFields = _MarketplaceConnectionBase()
+MarketplaceEdgeFields = _MarketplaceEdgeBase()
+MediaChannelConnectionFields = _MediaChannelConnectionBase()
+MediaChannelEdgeFields = _MediaChannelEdgeBase()
 MediaChannelFields = _MediaChannelBase()
+CatalogConnectionFields = _CatalogConnectionBase()
+CatalogEdgeFields = _CatalogEdgeBase()
 CatalogFields = _CatalogBase()
+ProductConnectionFields = _ProductConnectionBase()
+ProductEdgeFields = _ProductEdgeBase()
 ProductFields = _ProductBase()
 ResultResourceFields = _ResultResourceBase()
 VendorFields = _VendorBase()
+VendorTokenConnectionFields = _VendorTokenConnectionBase()
+VendorTokenEdgeFields = _VendorTokenEdgeBase()
 VendorTokenFields = _VendorTokenBase()
+ResultConnectionFields = _ResultConnectionBase()
+ResultEdgeFields = _ResultEdgeBase()
 ResultFields = _ResultBase()
 ResultAnalyticsFields = _ResultAnalyticsBase()
+MarketingCampaignConnectionFields = _MarketingCampaignConnectionBase()
+MarketingCampaignEdgeFields = _MarketingCampaignEdgeBase()
 MarketingCampaignFields = _MarketingCampaignBase()
 NotificationResourceFields = _NotificationResourceBase()
 GCPXFields = _GCPXBase()
+MarketingAdConnectionFields = _MarketingAdConnectionBase()
+MarketingAdEdgeFields = _MarketingAdEdgeBase()
 MarketingAdFields = _MarketingAdBase()
 AdPreviewFields = _AdPreviewBase()
+NotificationConnectionFields = _NotificationConnectionBase()
+NotificationEdgeFields = _NotificationEdgeBase()
 NotificationFields = _NotificationBase()
+CampaignTemplateConnectionFields = _CampaignTemplateConnectionBase()
+CampaignTemplateEdgeFields = _CampaignTemplateEdgeBase()
+VendorConnectionFields = _VendorConnectionBase()
+VendorEdgeFields = _VendorEdgeBase()
+CreativeTemplateConnectionFields = _CreativeTemplateConnectionBase()
+CreativeTemplateEdgeFields = _CreativeTemplateEdgeBase()
 CreativeTemplateFields = _CreativeTemplateBase()
+CreativeLayerConnectionFields = _CreativeLayerConnectionBase()
+CreativeLayerEdgeFields = _CreativeLayerEdgeBase()
 CreativeLayerFields = _CreativeLayerBase()
+GCPXConnectionFields = _GCPXConnectionBase()
+GCPXEdgeFields = _GCPXEdgeBase()
 CreativeFontFields = _CreativeFontBase()
+CreativeFontConnectionFields = _CreativeFontConnectionBase()
+CreativeFontEdgeFields = _CreativeFontEdgeBase()
 CreativeImageFields = _CreativeImageBase()
+CreativeImageConnectionFields = _CreativeImageConnectionBase()
+CreativeImageEdgeFields = _CreativeImageEdgeBase()
 TokenFields = _TokenBase()
 DeletionFields = _DeletionBase()
 RequestResultFields = _RequestResultBase()
 MarketingCampaignSnapshotFields = _MarketingCampaignSnapshotBase()
+MarketingCampaignSnapshotEdgeFields = _MarketingCampaignSnapshotEdgeBase()
+MarketingCampaignSnapshotConnectionFields = _MarketingCampaignSnapshotConnectionBase()
 SingleUseTokenFields = _SingleUseTokenBase()
-UserConnectionFields = _UserBase("edges.node.")
-OrganizationConnectionFields = _OrganizationBase("edges.node.")
-EntitlementConnectionFields = _EntitlementBase("edges.node.")
-MarketplaceConnectionFields = _MarketplaceBase("edges.node.")
-MediaChannelConnectionFields = _MediaChannelBase("edges.node.")
-CatalogConnectionFields = _CatalogBase("edges.node.")
-ProductConnectionFields = _ProductBase("edges.node.")
-VendorTokenConnectionFields = _VendorTokenBase("edges.node.")
-ResultConnectionFields = _ResultBase("edges.node.")
-MarketingCampaignConnectionFields = _MarketingCampaignBase("edges.node.")
-MarketingAdConnectionFields = _MarketingAdBase("edges.node.")
-NotificationConnectionFields = _NotificationBase("edges.node.")
-CampaignTemplateConnectionFields = _CampaignTemplateBase("edges.node.")
-VendorConnectionFields = _VendorBase("edges.node.")
-CreativeTemplateConnectionFields = _CreativeTemplateBase("edges.node.")
-CreativeLayerConnectionFields = _CreativeLayerBase("edges.node.")
-GCPXConnectionFields = _GCPXBase("edges.node.")
-CreativeFontConnectionFields = _CreativeFontBase("edges.node.")
-CreativeImageConnectionFields = _CreativeImageBase("edges.node.")
-MarketingCampaignSnapshotConnectionFields = _MarketingCampaignSnapshotBase(
-    "edges.node."
-)
-SingleUseTokenConnectionFields = _SingleUseTokenBase("edges.node.")
+SingleUseTokenEdgeFields = _SingleUseTokenEdgeBase()
+SingleUseTokenConnectionFields = _SingleUseTokenConnectionBase()
+
 __all__ = [
     "CampaignTemplateFields",
     "MarketplaceFields",
     "EntitlementResourceFields",
     "OrganizationFields",
     "UserConnectionFields",
+    "UserEdgeFields",
     "UserFields",
     "MeFields",
     "OrganizationConnectionFields",
+    "OrganizationEdgeFields",
     "PageInfoFields",
     "EntitlementConnectionFields",
+    "EntitlementEdgeFields",
     "EntitlementFields",
     "MarketplaceConnectionFields",
+    "MarketplaceEdgeFields",
     "MediaChannelConnectionFields",
+    "MediaChannelEdgeFields",
     "MediaChannelFields",
     "CatalogConnectionFields",
+    "CatalogEdgeFields",
     "CatalogFields",
     "ProductConnectionFields",
+    "ProductEdgeFields",
     "ProductFields",
     "ResultResourceFields",
     "VendorFields",
     "VendorTokenConnectionFields",
+    "VendorTokenEdgeFields",
     "VendorTokenFields",
     "ResultConnectionFields",
+    "ResultEdgeFields",
     "ResultFields",
     "ResultAnalyticsFields",
     "MarketingCampaignConnectionFields",
+    "MarketingCampaignEdgeFields",
     "MarketingCampaignFields",
     "NotificationResourceFields",
     "GCPXFields",
     "MarketingAdConnectionFields",
+    "MarketingAdEdgeFields",
     "MarketingAdFields",
     "AdPreviewFields",
     "NotificationConnectionFields",
+    "NotificationEdgeFields",
     "NotificationFields",
     "CampaignTemplateConnectionFields",
+    "CampaignTemplateEdgeFields",
     "VendorConnectionFields",
+    "VendorEdgeFields",
     "CreativeTemplateConnectionFields",
+    "CreativeTemplateEdgeFields",
     "CreativeTemplateFields",
     "CreativeLayerConnectionFields",
+    "CreativeLayerEdgeFields",
     "CreativeLayerFields",
     "GCPXConnectionFields",
+    "GCPXEdgeFields",
     "CreativeFontFields",
     "CreativeFontConnectionFields",
+    "CreativeFontEdgeFields",
     "CreativeImageFields",
     "CreativeImageConnectionFields",
+    "CreativeImageEdgeFields",
     "TokenFields",
     "DeletionFields",
     "RequestResultFields",
     "MarketingCampaignSnapshotFields",
+    "MarketingCampaignSnapshotEdgeFields",
     "MarketingCampaignSnapshotConnectionFields",
     "SingleUseTokenFields",
+    "SingleUseTokenEdgeFields",
     "SingleUseTokenConnectionFields",
 ]

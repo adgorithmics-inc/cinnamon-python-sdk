@@ -304,6 +304,38 @@ class PythonCodeGenerator:
             gql_object.name: gql_object for gql_object in schema.objects
         }
 
+    def _get_node_object(
+        self, target_object: GenericSchemaObject
+    ) -> Union[GenericSchemaObject, None]:
+        node = next(
+            (
+                nodes_gql_field
+                for nodes_gql_field in target_object.attributes
+                if nodes_gql_field.api_name == "node"
+            ),
+            None,
+        )
+        return self.objects_by_name[node.api_kind_name] if node else None
+
+    def _get_edges_object(
+        self, target_object: GenericSchemaObject
+    ) -> Union[GenericSchemaObject, None]:
+        edges = next(
+            (
+                edges_gql_field
+                for edges_gql_field in target_object.attributes
+                if edges_gql_field.api_name == "edges"
+            ),
+            None,
+        )
+        return self.objects_by_name[edges.api_kind_name] if edges else None
+
+    def _get_node_object_if_edges(
+        self, target_object: GenericSchemaObject
+    ) -> Union[GenericSchemaObject, None]:
+        edges = self._get_edges_object(target_object)
+        return self._get_node_object(edges) if edges else None
+
     def object_classes(self) -> str:
         all_code = ""
         for gql_object in self.schema.objects:
@@ -320,6 +352,8 @@ class PythonCodeGenerator:
             object_attributes_code = "\n    ".join(object_attributes)
 
             object_classes = ["BaseCinnamonObject"]
+            if self._get_node_object_if_edges(gql_object):
+                object_classes += ["BaseCinnamonEdgesObject"]
 
             object_code = str(
                 f"class {gql_object.name}({', '.join(object_classes)}):\n"
@@ -341,91 +375,52 @@ class PythonCodeGenerator:
 
         return black.format_str(all_code, mode=BLACK_MODE)
 
-    def _get_node_object(
-        self, target_object: GenericSchemaObject
-    ) -> Union[GenericSchemaObject, None]:
-        node = next(
-            (
-                nodes_gql_field
-                for nodes_gql_field in target_object.attributes
-                if nodes_gql_field.api_name == "node"
-            ),
-            None,
-        )
-        return self.objects_by_name[node.api_kind_name] if node else None
-
-    def _get_node_object_if_edges(
-        self, target_object: GenericSchemaObject
-    ) -> Union[GenericSchemaObject, None]:
-        edges = next(
-            (
-                edges_gql_field
-                for edges_gql_field in target_object.attributes
-                if edges_gql_field.api_name == "edges"
-            ),
-            None,
-        )
-        return (
-            self._get_node_object(self.objects_by_name[edges.api_kind_name])
-            if edges
-            else None
-        )
-
-    def _get_field_class_for_object(
-        self, name: str, gql_object: GenericSchemaObject,
-    ) -> List[str]:
-        fields = []
-        default_fields = []
-        for gql_field in gql_object.attributes:
-            if gql_field.api_kind == "OBJECT":
-                target_object = self.objects_by_name[gql_field.api_kind_name]
-                node = self._get_node_object_if_edges(target_object)
-                field_set_class = (
-                    f"_{node.name}Base" if node else f"_{target_object.name}Base"
-                )
-                prefix = f"{gql_field.api_name}."
-                if node:
-                    prefix += "edges.node."
-                fields += [
-                    "    @property",
-                    "    @lru_cache()",
-                    f'    def {gql_field.python_name}(self) -> "{field_set_class}":',
-                    f"        return self._sdk_embed({field_set_class}, {repr(prefix)})",
-                ]
-            else:
-                default_fields.append(gql_field.python_name)
-                fields.append(
-                    f"    {gql_field.python_name} = QueryField('{gql_field.api_name}')"
-                )
-
-        code = f"class _{name}Base(QueryFieldSet):\n"
-        code += f"    _sdk_default_field_names = {repr(default_fields)}\n"
-        code += "\n".join(fields)
-        code += "\n"
-        return code
-
     def fields_classes(self) -> str:
         all_code = ""
         all_base_instances = []
         all_object_names_list = []
         all_connections = []
         for gql_object in self.schema.objects:
-            has_node_in_edges = self._get_node_object_if_edges(gql_object)
-            if has_node_in_edges:
-                all_connections.append(
-                    f"{gql_object.name}Fields = _{has_node_in_edges.name}Base('edges.node.')"
-                )
-                all_object_names_list.append(f"{gql_object.name}Fields")
-            elif self._get_node_object(gql_object):
-                pass
-            else:
-                all_code += self._get_field_class_for_object(
-                    gql_object.name, gql_object
-                )
-                all_base_instances.append(
-                    f"{gql_object.name}Fields = _{gql_object.name}Base()"
-                )
-                all_object_names_list.append(f"{gql_object.name}Fields")
+            fields = []
+            default_fields = []
+            for gql_field in gql_object.attributes:
+                if gql_field.api_kind == "OBJECT":
+                    target_object = self.objects_by_name[gql_field.api_kind_name]
+                    field_set_class = f"_{target_object.name}Base"
+                    prefix = f"{gql_field.api_name}."
+                    fields += [
+                        "    @property",
+                        "    @lru_cache()",
+                        f'    def {gql_field.python_name}(self) -> "{field_set_class}":',
+                        f"        return self._sdk_embed({field_set_class}, {repr(prefix)})",
+                    ]
+
+                    if gql_field.api_name == "edges":
+                        for node_field in self._get_node_object_if_edges(
+                            gql_object
+                        ).attributes:
+                            if node_field.api_kind != "OBJECT":
+                                default_fields.append(
+                                    f"QueryField('{node_field.api_name}', 'edges.node.')"
+                                )
+
+                else:
+                    default_fields.append(f"QueryField('{gql_field.api_name}')")
+                    fields.append(
+                        f"    {gql_field.python_name} = QueryField('{gql_field.api_name}')"
+                    )
+
+            code = f"class _{gql_object.name}Base(QueryFieldSet):\n"
+            code += f"    _sdk_default_fields = [{', '.join(default_fields)}]\n"
+
+            code += "\n".join(fields)
+            code += "\n"
+
+            all_code += code
+            all_base_instances.append(
+                f"{gql_object.name}Fields = _{gql_object.name}Base()"
+            )
+            all_object_names_list.append(f"{gql_object.name}Fields")
 
         all_code += "\n".join(all_base_instances)
         all_code += "\n"
@@ -511,7 +506,12 @@ class PythonCodeGenerator:
                     "token: Union[str, None] = None",
                 ]
             )
-            args_legend[query.python_name] = [
+
+            func_name = (
+                f"{query.python_name}_each" if query.is_paged else query.python_name
+            )
+
+            args_legend[func_name] = [
                 arg.to_class_code(arg.python_name) for arg in arguments_iterable
             ]
 
@@ -525,13 +525,13 @@ class PythonCodeGenerator:
                 return_hint = f"Iterable[{return_hint}]"
 
             function_code = [
-                f"def {query.python_name}(self, {', '.join(args)}) -> {return_hint}:",
+                f"def {func_name}(self, {', '.join(args)}) -> {return_hint}:",
                 f"    query_args = self._query_builder(",
                 f"        {repr(query.query_type)},",
                 f"        {repr(query.name)},",
                 "        fields,",
                 f"        {query_builder_arg_dict},",
-                f"        _ARGUMENT_LEGENDS.{query.python_name},",
+                f"        _ARGUMENT_LEGENDS.{func_name},",
                 f"        {query.is_paged},",
                 "    )",
             ]

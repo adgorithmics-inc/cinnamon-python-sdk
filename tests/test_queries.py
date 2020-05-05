@@ -60,11 +60,11 @@ class TestQueries(unittest.TestCase):
         ]
         vendor_ids = [vendor.id for vendor in vendors]
         verified_vendor_ids = []
-        vendors_query = self.cinnamon.vendors(
+        vendors_query = self.cinnamon.vendors_each(
             filter=FilterInput(
                 field="id", operator=FilterOperator.IN, value=vendor_ids
             ),
-            fields=[VendorConnectionFields.id],
+            fields=[VendorConnectionFields.edges.node.id],
         )
         for queried_vendor in vendors_query:
             self.assertFalse(queried_vendor.id in verified_vendor_ids)
@@ -85,7 +85,7 @@ class TestQueries(unittest.TestCase):
         )
         queried_vendors = [
             v.id
-            for v in self.cinnamon.vendors(
+            for v in self.cinnamon.vendors_each(
                 filter=FilterInput("id", FilterOperator.IN, [vendor.id, vendor_2.id]),
                 sort=SortInput("name", SORT_ORDER.DESC),
             )
@@ -113,7 +113,7 @@ class TestQueries(unittest.TestCase):
 
     def test_query_with_blank_results(self):
         # This test should not raise an exception
-        [v for v in self.cinnamon.creative_templates()]
+        [v for v in self.cinnamon.creative_templates_each()]
 
     def test_auto_refresh_login(self):
         self.cinnamon.refresh_login()

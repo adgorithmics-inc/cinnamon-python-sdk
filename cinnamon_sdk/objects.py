@@ -1,6 +1,6 @@
 from typing import Union, List, Any
 from datetime import datetime
-from .internals.base_classes import BaseCinnamonObject, BaseCinnamonField
+from .internals.base_classes import BaseCinnamonObject, BaseCinnamonEdgesObject, BaseCinnamonField
 from .internals.constants import CinnamonUndefined
 from .internals import scalars
 from . import enums
@@ -443,7 +443,7 @@ class Organization(BaseCinnamonObject):
     marketplaces: "MarketplaceConnection"
 
 
-class UserConnection(BaseCinnamonObject):
+class UserConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -616,7 +616,7 @@ class Me(BaseCinnamonObject):
     last_change_date: datetime
 
 
-class OrganizationConnection(BaseCinnamonObject):
+class OrganizationConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -706,7 +706,7 @@ class PageInfo(BaseCinnamonObject):
     has_previous_page: bool
 
 
-class EntitlementConnection(BaseCinnamonObject):
+class EntitlementConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -819,7 +819,7 @@ class Entitlement(BaseCinnamonObject):
     resource: Any
 
 
-class MarketplaceConnection(BaseCinnamonObject):
+class MarketplaceConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -869,7 +869,7 @@ class MarketplaceEdge(BaseCinnamonObject):
     cursor: str
 
 
-class MediaChannelConnection(BaseCinnamonObject):
+class MediaChannelConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -1071,7 +1071,7 @@ class MediaChannel(BaseCinnamonObject):
     marketplace: Union["Marketplace", None, CinnamonUndefined]
 
 
-class CatalogConnection(BaseCinnamonObject):
+class CatalogConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -1255,7 +1255,7 @@ class Catalog(BaseCinnamonObject):
     products: "ProductConnection"
 
 
-class ProductConnection(BaseCinnamonObject):
+class ProductConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -1630,7 +1630,7 @@ class Vendor(BaseCinnamonObject):
     products: "ProductConnection"
 
 
-class VendorTokenConnection(BaseCinnamonObject):
+class VendorTokenConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -1745,7 +1745,7 @@ class VendorToken(BaseCinnamonObject):
     email: Union[str, None, CinnamonUndefined]
 
 
-class ResultConnection(BaseCinnamonObject):
+class ResultConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -1941,7 +1941,7 @@ class ResultAnalytics(BaseCinnamonObject):
     purchases_value: Union[float, None, CinnamonUndefined]
 
 
-class MarketingCampaignConnection(BaseCinnamonObject):
+class MarketingCampaignConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -2384,7 +2384,7 @@ class GCPX(BaseCinnamonObject):
     marketing_campaigns: "MarketingCampaignConnection"
 
 
-class MarketingAdConnection(BaseCinnamonObject):
+class MarketingAdConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -2581,7 +2581,7 @@ class AdPreview(BaseCinnamonObject):
     placement: str
 
 
-class NotificationConnection(BaseCinnamonObject):
+class NotificationConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -2721,7 +2721,7 @@ class Notification(BaseCinnamonObject):
     resource: Any
 
 
-class CampaignTemplateConnection(BaseCinnamonObject):
+class CampaignTemplateConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -2771,7 +2771,7 @@ class CampaignTemplateEdge(BaseCinnamonObject):
     cursor: str
 
 
-class VendorConnection(BaseCinnamonObject):
+class VendorConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -2821,7 +2821,7 @@ class VendorEdge(BaseCinnamonObject):
     cursor: str
 
 
-class CreativeTemplateConnection(BaseCinnamonObject):
+class CreativeTemplateConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -2979,7 +2979,7 @@ class CreativeTemplate(BaseCinnamonObject):
     creative_layers: "CreativeLayerConnection"
 
 
-class CreativeLayerConnection(BaseCinnamonObject):
+class CreativeLayerConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -3165,7 +3165,7 @@ class CreativeLayer(BaseCinnamonObject):
     creative_template: "CreativeTemplate"
 
 
-class GCPXConnection(BaseCinnamonObject):
+class GCPXConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -3307,7 +3307,7 @@ class CreativeFont(BaseCinnamonObject):
     marketplace: "Marketplace"
 
 
-class CreativeFontConnection(BaseCinnamonObject):
+class CreativeFontConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -3449,7 +3449,7 @@ class CreativeImage(BaseCinnamonObject):
     marketplace: "Marketplace"
 
 
-class CreativeImageConnection(BaseCinnamonObject):
+class CreativeImageConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -3695,7 +3695,7 @@ class MarketingCampaignSnapshotEdge(BaseCinnamonObject):
     cursor: str
 
 
-class MarketingCampaignSnapshotConnection(BaseCinnamonObject):
+class MarketingCampaignSnapshotConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"
@@ -3793,7 +3793,7 @@ class SingleUseTokenEdge(BaseCinnamonObject):
     cursor: str
 
 
-class SingleUseTokenConnection(BaseCinnamonObject):
+class SingleUseTokenConnection(BaseCinnamonObject, BaseCinnamonEdgesObject):
     class _API_FIELDS:
         class edges(BaseCinnamonField):
             api_name = "edges"

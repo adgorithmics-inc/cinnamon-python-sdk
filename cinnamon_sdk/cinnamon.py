@@ -17,7 +17,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class campaign_templates:
+    class campaign_templates_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -41,7 +41,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "show_deleted"
             scalar = scalars.Boolean
 
-    class campaign_templates_with_current_gcpx:
+    class campaign_templates_with_current_gcpx_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -74,7 +74,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class catalogs:
+    class catalogs_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -107,7 +107,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class creative_fonts:
+    class creative_fonts_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -140,7 +140,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class creative_images:
+    class creative_images_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -173,7 +173,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class creative_layers:
+    class creative_layers_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -206,7 +206,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class creative_templates:
+    class creative_templates_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -248,7 +248,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class marketing_ads:
+    class marketing_ads_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -281,7 +281,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class marketing_campaigns:
+    class marketing_campaigns_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -314,7 +314,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class marketplaces:
+    class marketplaces_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -347,7 +347,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class media_channels:
+    class media_channels_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -389,7 +389,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class organizations:
+    class organizations_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -422,7 +422,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class products:
+    class products_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -464,7 +464,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class vendors:
+    class vendors_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -497,7 +497,7 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class vendor_tokens:
+    class vendor_tokens_each:
         class sort(BaseCinnamonField):
             api_name = "sort"
             api_kind = "INPUT_OBJECT"
@@ -545,7 +545,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_catalogs:
+    class update_catalogs_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -634,7 +634,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_creative_fonts:
+    class update_creative_fonts_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -698,7 +698,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_creative_images:
+    class update_creative_images_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -762,7 +762,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_creative_layers:
+    class update_creative_layers_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -826,7 +826,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_creative_templates:
+    class update_creative_templates_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -923,7 +923,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_marketing_campaigns:
+    class update_marketing_campaigns_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -1020,7 +1020,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_marketplaces:
+    class update_marketplaces_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -1092,7 +1092,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_media_channels:
+    class update_media_channels_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -1172,7 +1172,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_organizations:
+    class update_organizations_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -1236,7 +1236,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_products:
+    class update_products_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -1324,7 +1324,7 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "input"
 
-    class update_vendors:
+    class update_vendors_each:
         class input(BaseCinnamonField):
             api_name = "input"
             api_kind = "INPUT_OBJECT"
@@ -1422,7 +1422,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def campaign_templates(
+    def campaign_templates_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1438,7 +1438,7 @@ class Cinnamon(BaseSyncCinnamon):
             "campaignTemplates",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.campaign_templates,
+            _ARGUMENT_LEGENDS.campaign_templates_each,
             True,
         )
         return self.iterate_edges(
@@ -1449,7 +1449,7 @@ class Cinnamon(BaseSyncCinnamon):
             "campaignTemplates",
         )
 
-    def campaign_templates_with_current_gcpx(
+    def campaign_templates_with_current_gcpx_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1465,7 +1465,7 @@ class Cinnamon(BaseSyncCinnamon):
             "campaignTemplatesWithCurrentGCPX",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.campaign_templates_with_current_gcpx,
+            _ARGUMENT_LEGENDS.campaign_templates_with_current_gcpx_each,
             True,
         )
         return self.iterate_edges(
@@ -1492,7 +1492,7 @@ class Cinnamon(BaseSyncCinnamon):
             self.api(headers=headers, token=token, **query_args)["data"]["catalog"],
         )
 
-    def catalogs(
+    def catalogs_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1508,7 +1508,7 @@ class Cinnamon(BaseSyncCinnamon):
             "catalogs",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.catalogs,
+            _ARGUMENT_LEGENDS.catalogs_each,
             True,
         )
         return self.iterate_edges(
@@ -1538,7 +1538,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def creative_fonts(
+    def creative_fonts_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1554,7 +1554,7 @@ class Cinnamon(BaseSyncCinnamon):
             "creativeFonts",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.creative_fonts,
+            _ARGUMENT_LEGENDS.creative_fonts_each,
             True,
         )
         return self.iterate_edges(
@@ -1584,7 +1584,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def creative_images(
+    def creative_images_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1600,7 +1600,7 @@ class Cinnamon(BaseSyncCinnamon):
             "creativeImages",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.creative_images,
+            _ARGUMENT_LEGENDS.creative_images_each,
             True,
         )
         return self.iterate_edges(
@@ -1634,7 +1634,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def creative_layers(
+    def creative_layers_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1650,7 +1650,7 @@ class Cinnamon(BaseSyncCinnamon):
             "creativeLayers",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.creative_layers,
+            _ARGUMENT_LEGENDS.creative_layers_each,
             True,
         )
         return self.iterate_edges(
@@ -1684,7 +1684,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def creative_templates(
+    def creative_templates_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1700,7 +1700,7 @@ class Cinnamon(BaseSyncCinnamon):
             "creativeTemplates",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.creative_templates,
+            _ARGUMENT_LEGENDS.creative_templates_each,
             True,
         )
         return self.iterate_edges(
@@ -1753,7 +1753,7 @@ class Cinnamon(BaseSyncCinnamon):
             self.api(headers=headers, token=token, **query_args)["data"]["marketingAd"],
         )
 
-    def marketing_ads(
+    def marketing_ads_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1769,7 +1769,7 @@ class Cinnamon(BaseSyncCinnamon):
             "marketingAds",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.marketing_ads,
+            _ARGUMENT_LEGENDS.marketing_ads_each,
             True,
         )
         return self.iterate_edges(
@@ -1799,7 +1799,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def marketing_campaigns(
+    def marketing_campaigns_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1815,7 +1815,7 @@ class Cinnamon(BaseSyncCinnamon):
             "marketingCampaigns",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.marketing_campaigns,
+            _ARGUMENT_LEGENDS.marketing_campaigns_each,
             True,
         )
         return self.iterate_edges(
@@ -1847,7 +1847,7 @@ class Cinnamon(BaseSyncCinnamon):
             self.api(headers=headers, token=token, **query_args)["data"]["marketplace"],
         )
 
-    def marketplaces(
+    def marketplaces_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1863,7 +1863,7 @@ class Cinnamon(BaseSyncCinnamon):
             "marketplaces",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.marketplaces,
+            _ARGUMENT_LEGENDS.marketplaces_each,
             True,
         )
         return self.iterate_edges(
@@ -1893,7 +1893,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def media_channels(
+    def media_channels_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1909,7 +1909,7 @@ class Cinnamon(BaseSyncCinnamon):
             "mediaChannels",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.media_channels,
+            _ARGUMENT_LEGENDS.media_channels_each,
             True,
         )
         return self.iterate_edges(
@@ -1962,7 +1962,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def organizations(
+    def organizations_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -1978,7 +1978,7 @@ class Cinnamon(BaseSyncCinnamon):
             "organizations",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.organizations,
+            _ARGUMENT_LEGENDS.organizations_each,
             True,
         )
         return self.iterate_edges(
@@ -2001,7 +2001,7 @@ class Cinnamon(BaseSyncCinnamon):
             self.api(headers=headers, token=token, **query_args)["data"]["product"],
         )
 
-    def products(
+    def products_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2017,7 +2017,7 @@ class Cinnamon(BaseSyncCinnamon):
             "products",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.products,
+            _ARGUMENT_LEGENDS.products_each,
             True,
         )
         return self.iterate_edges(
@@ -2056,7 +2056,7 @@ class Cinnamon(BaseSyncCinnamon):
             self.api(headers=headers, token=token, **query_args)["data"]["vendor"],
         )
 
-    def vendors(
+    def vendors_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2072,7 +2072,7 @@ class Cinnamon(BaseSyncCinnamon):
             "vendors",
             fields,
             {"sort": sort, "filter": filter, "show_deleted": show_deleted,},
-            _ARGUMENT_LEGENDS.vendors,
+            _ARGUMENT_LEGENDS.vendors_each,
             True,
         )
         return self.iterate_edges(
@@ -2100,7 +2100,7 @@ class Cinnamon(BaseSyncCinnamon):
             self.api(headers=headers, token=token, **query_args)["data"]["vendorToken"],
         )
 
-    def vendor_tokens(
+    def vendor_tokens_each(
         self,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
         filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2115,7 +2115,7 @@ class Cinnamon(BaseSyncCinnamon):
             "vendorTokens",
             fields,
             {"sort": sort, "filter": filter,},
-            _ARGUMENT_LEGENDS.vendor_tokens,
+            _ARGUMENT_LEGENDS.vendor_tokens_each,
             True,
         )
         return self.iterate_edges(
@@ -2192,7 +2192,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_catalogs(
+    def update_catalogs_each(
         self,
         input: inputs.CatalogUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2214,7 +2214,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_catalogs,
+            _ARGUMENT_LEGENDS.update_catalogs_each,
             True,
         )
         return self.iterate_edges(
@@ -2338,7 +2338,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_creative_fonts(
+    def update_creative_fonts_each(
         self,
         input: inputs.CreativeFontUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2360,7 +2360,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_creative_fonts,
+            _ARGUMENT_LEGENDS.update_creative_fonts_each,
             True,
         )
         return self.iterate_edges(
@@ -2441,7 +2441,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_creative_images(
+    def update_creative_images_each(
         self,
         input: inputs.CreativeImageUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2463,7 +2463,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_creative_images,
+            _ARGUMENT_LEGENDS.update_creative_images_each,
             True,
         )
         return self.iterate_edges(
@@ -2544,7 +2544,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_creative_layers(
+    def update_creative_layers_each(
         self,
         input: inputs.CreativeLayerUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2566,7 +2566,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_creative_layers,
+            _ARGUMENT_LEGENDS.update_creative_layers_each,
             True,
         )
         return self.iterate_edges(
@@ -2647,7 +2647,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_creative_templates(
+    def update_creative_templates_each(
         self,
         input: inputs.CreativeTemplateUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2669,7 +2669,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_creative_templates,
+            _ARGUMENT_LEGENDS.update_creative_templates_each,
             True,
         )
         return self.iterate_edges(
@@ -2820,7 +2820,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_marketing_campaigns(
+    def update_marketing_campaigns_each(
         self,
         input: inputs.MarketingCampaignUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2842,7 +2842,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_marketing_campaigns,
+            _ARGUMENT_LEGENDS.update_marketing_campaigns_each,
             True,
         )
         return self.iterate_edges(
@@ -2973,7 +2973,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_marketplaces(
+    def update_marketplaces_each(
         self,
         input: inputs.MarketplaceUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -2995,7 +2995,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_marketplaces,
+            _ARGUMENT_LEGENDS.update_marketplaces_each,
             True,
         )
         return self.iterate_edges(
@@ -3099,7 +3099,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_media_channels(
+    def update_media_channels_each(
         self,
         input: inputs.MediaChannelUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -3121,7 +3121,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_media_channels,
+            _ARGUMENT_LEGENDS.update_media_channels_each,
             True,
         )
         return self.iterate_edges(
@@ -3226,7 +3226,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_organizations(
+    def update_organizations_each(
         self,
         input: inputs.OrganizationUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -3248,7 +3248,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_organizations,
+            _ARGUMENT_LEGENDS.update_organizations_each,
             True,
         )
         return self.iterate_edges(
@@ -3329,7 +3329,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_products(
+    def update_products_each(
         self,
         input: inputs.ProductUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -3351,7 +3351,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_products,
+            _ARGUMENT_LEGENDS.update_products_each,
             True,
         )
         return self.iterate_edges(
@@ -3495,7 +3495,7 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def update_vendors(
+    def update_vendors_each(
         self,
         input: inputs.VendorUpdateInput,
         sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
@@ -3517,7 +3517,7 @@ class Cinnamon(BaseSyncCinnamon):
                 "filter": filter,
                 "show_deleted": show_deleted,
             },
-            _ARGUMENT_LEGENDS.update_vendors,
+            _ARGUMENT_LEGENDS.update_vendors_each,
             True,
         )
         return self.iterate_edges(

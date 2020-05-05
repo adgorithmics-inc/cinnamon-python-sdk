@@ -19,7 +19,7 @@ with open(objects_filename, mode="w") as f:
     f.write("from typing import Union, List, Any\n")
     f.write("from datetime import datetime\n")
     f.write(
-        "from .internals.base_classes import BaseCinnamonObject, BaseCinnamonField\n"
+        "from .internals.base_classes import BaseCinnamonObject, BaseCinnamonEdgesObject, BaseCinnamonField\n"
     )
     f.write("from .internals.constants import CinnamonUndefined\n")
     f.write("from .internals import scalars\n")
