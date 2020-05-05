@@ -361,8 +361,8 @@ class BaseCinnamon:
         )["data"]["refreshLogin"]
 
         if result["token"] and result["refreshToken"]:
-            self.token = result.token
-            self.refresh_token = result.refresh_token
+            self.token = result["token"]
+            self.refresh_token = result["refreshToken"]
 
         return result
 
