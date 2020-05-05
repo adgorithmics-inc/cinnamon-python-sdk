@@ -239,22 +239,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class entitlements:
-        class sort(BaseCinnamonField):
-            api_name = "sort"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "SortInput"
-            python_iterable = None
-            python_name = "sort"
-
-        class filter(BaseCinnamonField):
-            api_name = "filter"
-            api_kind = "SCALAR"
-            api_kind_name = "FilterInput"
-            python_iterable = None
-            python_name = "filter"
-            scalar = scalars.FilterInput
-
     class marketing_ad:
         class id(BaseCinnamonField):
             api_name = "id"
@@ -396,22 +380,6 @@ class _ARGUMENT_LEGENDS:
             python_name = "id"
             scalar = scalars.ObjectId
 
-    class notifications:
-        class sort(BaseCinnamonField):
-            api_name = "sort"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "SortInput"
-            python_iterable = None
-            python_name = "sort"
-
-        class filter(BaseCinnamonField):
-            api_name = "filter"
-            api_kind = "SCALAR"
-            api_kind_name = "FilterInput"
-            python_iterable = None
-            python_name = "filter"
-            scalar = scalars.FilterInput
-
     class organization:
         class id(BaseCinnamonField):
             api_name = "id"
@@ -486,22 +454,6 @@ class _ARGUMENT_LEGENDS:
             python_iterable = None
             python_name = "id"
             scalar = scalars.ObjectId
-
-    class results:
-        class sort(BaseCinnamonField):
-            api_name = "sort"
-            api_kind = "INPUT_OBJECT"
-            api_kind_name = "SortInput"
-            python_iterable = None
-            python_name = "sort"
-
-        class filter(BaseCinnamonField):
-            api_name = "filter"
-            api_kind = "SCALAR"
-            api_kind_name = "FilterInput"
-            python_iterable = None
-            python_name = "filter"
-            scalar = scalars.FilterInput
 
     class vendor:
         class id(BaseCinnamonField):
@@ -1826,28 +1778,6 @@ class Cinnamon(BaseSyncCinnamon):
             self.api(headers=headers, token=token, **query_args)["data"]["entitlement"],
         )
 
-    def entitlements(
-        self,
-        sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
-        filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
-        fields: List[
-            Union[QueryField, QueryFieldSet, str]
-        ] = fields_module.EntitlementConnectionFields._sdk_default_fields,
-        headers: Union[dict, None] = None,
-        token: Union[str, None] = None,
-    ) -> Iterable[objects.EntitlementConnection]:
-        query_args = self._query_builder(
-            "query",
-            "entitlements",
-            fields,
-            {"sort": sort, "filter": filter,},
-            _ARGUMENT_LEGENDS.entitlements,
-            True,
-        )
-        return self.iterate_edges(
-            objects.EntitlementConnection, query_args, headers, token, "entitlements",
-        )
-
     def marketing_ad(
         self,
         id: str,
@@ -2055,28 +1985,6 @@ class Cinnamon(BaseSyncCinnamon):
             ],
         )
 
-    def notifications(
-        self,
-        sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
-        filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
-        fields: List[
-            Union[QueryField, QueryFieldSet, str]
-        ] = fields_module.NotificationConnectionFields._sdk_default_fields,
-        headers: Union[dict, None] = None,
-        token: Union[str, None] = None,
-    ) -> Iterable[objects.NotificationConnection]:
-        query_args = self._query_builder(
-            "query",
-            "notifications",
-            fields,
-            {"sort": sort, "filter": filter,},
-            _ARGUMENT_LEGENDS.notifications,
-            True,
-        )
-        return self.iterate_edges(
-            objects.NotificationConnection, query_args, headers, token, "notifications",
-        )
-
     def organization(
         self,
         id: str,
@@ -2176,28 +2084,6 @@ class Cinnamon(BaseSyncCinnamon):
         )
         return objects.Result(
             self.api(headers=headers, token=token, **query_args)["data"]["result"],
-        )
-
-    def results(
-        self,
-        sort: Union[inputs.SortInput, None, CinnamonUndefined] = CinnamonUndefined,
-        filter: Union[dict, None, CinnamonUndefined] = CinnamonUndefined,
-        fields: List[
-            Union[QueryField, QueryFieldSet, str]
-        ] = fields_module.ResultConnectionFields._sdk_default_fields,
-        headers: Union[dict, None] = None,
-        token: Union[str, None] = None,
-    ) -> Iterable[objects.ResultConnection]:
-        query_args = self._query_builder(
-            "query",
-            "results",
-            fields,
-            {"sort": sort, "filter": filter,},
-            _ARGUMENT_LEGENDS.results,
-            True,
-        )
-        return self.iterate_edges(
-            objects.ResultConnection, query_args, headers, token, "results",
         )
 
     def vendor(
