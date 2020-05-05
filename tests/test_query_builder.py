@@ -66,3 +66,13 @@ class TestQueryBuilder(unittest.TestCase):
             sent_dict["variables"]["input"]["runTimeSpec"]["startDate"],
             datetime_encoder(the_time),
         )
+
+    @patch("cinnamon_sdk.cinnamon.Cinnamon.api")
+    def test_query_builder_translates_snake_case_correctly(self, api):
+        api.return_value = {"data": {"approveMarketingCampaign": {}}}
+        cinna = Cinnamon(url="")
+        the_time = datetime.datetime.utcnow()
+        cinna.approve_marketing_campaign(id=1, last_change_date=the_time)
+        self.assertEqual(
+            api.mock_calls[0][2]["variables"], {"id": 1, "lastChangeDate": the_time}
+        )

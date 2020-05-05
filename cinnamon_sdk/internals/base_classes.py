@@ -302,9 +302,9 @@ class BaseCinnamon:
             query_vars.append(f"${arg_type.api_name}: {arg_type.api_kind_name}!")
             call_vars.append(f"{arg_type.api_name}: ${arg_type.api_name}")
             if isinstance(arg_value, (BaseCinnamonInput, FilterInput)):
-                encoded_args[arg_name] = arg_value.api_dict
+                encoded_args[arg_type.api_name] = arg_value.api_dict
             else:
-                encoded_args[arg_name] = arg_value
+                encoded_args[arg_type.api_name] = arg_value
 
         if is_paged:
             pydash.set_(fields_tree, "pageInfo.endCursor", QueryField("endCursor"))
