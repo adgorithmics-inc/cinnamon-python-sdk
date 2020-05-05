@@ -58,9 +58,13 @@ class BaseCinnamonObject:
 
             field = getattr(self._API_FIELDS, key)
             value = getattr(self, field.python_name, None)
+            write_value = None
             if isinstance(value, BaseCinnamonObject):
-                value = value.to_dict()
-            to_return[getattr(field, assign_key)] = value
+                write_value = value.to_dict()
+            elif isinstance(value, (str, int, float)):
+                write_value = value
+            if write_value:
+                to_return[getattr(field, assign_key)] = write_value
         return to_return
 
     def to_dict(self) -> dict:
@@ -213,7 +217,7 @@ class BaseCinnamon:
                     pydash.get(error, "extensions.code") == GraphQLCodes.TOKEN_EXPIRED
                     for error in json_response["errors"]
                 ):
-                    self._refresh_login()
+                    self.refresh_login()
                     return self._api(query, variables, headers, token)
 
                 raise CinnamonException(
@@ -353,7 +357,7 @@ class BaseCinnamon:
                 }
             }
             """,
-            variables={"input": {"refreshToken": refresh_token,}},
+            variables={"input": {"refreshToken": refresh_token or self.refresh_token}},
         )["data"]["refreshLogin"]
 
         if result["token"] and result["refreshToken"]:
