@@ -1994,21 +1994,6 @@ class Cinnamon(BaseSyncCinnamon):
             objects.MarketplaceConnection, query_args, headers, token, "marketplaces",
         )
 
-    def me(
-        self,
-        fields: List[
-            Union[QueryField, QueryFieldSet, str]
-        ] = fields_module.MeFields._sdk_default_fields,
-        headers: Union[dict, None] = None,
-        token: Union[str, None] = None,
-    ) -> objects.Me:
-        query_args = self._query_builder(
-            "query", "me", fields, {}, _ARGUMENT_LEGENDS.me, False,
-        )
-        return objects.Me(
-            self.api(headers=headers, token=token, **query_args)["data"]["me"],
-        )
-
     def media_channel(
         self,
         id: str,

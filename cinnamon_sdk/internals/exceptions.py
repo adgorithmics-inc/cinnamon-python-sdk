@@ -2,6 +2,8 @@ import re
 import json
 from requests import Response
 
+from .json_codecs import CinnamonJSONEncoder
+
 PRETTY_JSON_INDENT = 2
 
 
@@ -50,7 +52,11 @@ class CinnamonException(Exception):
             return ""
         return cls._pretty_indent(
             json.dumps(
-                dct, sort_keys=True, indent=PRETTY_JSON_INDENT, ensure_ascii=False
+                dct,
+                sort_keys=True,
+                indent=PRETTY_JSON_INDENT,
+                ensure_ascii=False,
+                cls=CinnamonJSONEncoder,
             )
         )
 

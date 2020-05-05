@@ -1,7 +1,8 @@
 import datetime
 import dateutil.parser
 
-from .base_classes import BaseCinnamonScalar, datetime_encoder
+from .base_classes import BaseCinnamonScalar
+from .json_codecs import datetime_encoder
 
 
 class ObjectId(BaseCinnamonScalar):

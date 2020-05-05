@@ -3,8 +3,6 @@ import pydash
 import json
 import requests
 import copy
-import datetime
-import pytz
 from typing import Union, Any, Iterable
 from enum import Enum
 from requests import Response
@@ -18,21 +16,7 @@ from .constants import (
     FilterInput,
 )
 from .exceptions import CinnamonException
-
-
-def datetime_encoder(dt: datetime.datetime) -> str:
-    if isinstance(dt, datetime.datetime):
-        return dt.astimezone(pytz.UTC).isoformat()
-    return dt
-
-
-class CinnamonJSONEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, datetime.datetime):
-            return datetime_encoder(obj)
-        if isinstance(obj, Enum):
-            return obj.value
-        return json.JSONEncoder.default(self, obj)
+from .json_codecs import CinnamonJSONEncoder
 
 
 class BaseCinnamonScalar:
@@ -65,6 +49,25 @@ class BaseCinnamonObject:
         if getattr(self, "name", None):
             s += f": {self.name}"
         return s
+
+    def _to_dict(self, assign_key: str) -> dict:
+        to_return = {}
+        for key in dir(self._API_FIELDS):
+            if key.startswith("__"):
+                continue
+
+            field = getattr(self._API_FIELDS, key)
+            value = getattr(self, field.python_name, None)
+            if isinstance(value, BaseCinnamonObject):
+                value = value.to_dict()
+            to_return[getattr(field, assign_key)] = value
+        return to_return
+
+    def to_dict(self) -> dict:
+        return self._to_dict("python_name")
+
+    def to_api_dict(self) -> dict:
+        return self._to_dict("api_name")
 
 
 class BaseCinnamonField:
@@ -164,25 +167,6 @@ class BaseCinnamon:
 
     def _network_request(self, url: str, headers: dict, data: str) -> Response:
         raise NotImplementedError
-
-    def _refresh_login(self) -> Union[str, None]:
-        result = self._api(
-            """
-            mutation($input: RefreshTokenInput!) {
-                refreshLogin(input: $input) {
-                    token
-                    refreshToken
-                }
-            }
-            """
-        )["data"]["refreshLogin"]
-
-        if result["token"] and result["refreshToken"]:
-            self.token = result.token
-            self.refresh_token = result.refresh_token
-            return self.token
-
-        return None
 
     def _api(
         self,
@@ -303,9 +287,6 @@ class BaseCinnamon:
                 fields_list.append(field)
             else:
                 raise ValueError(f"Invalid field: {field}")
-        if fields_tree:
-            fields_list.append(self._field_tree_recursion("", fields_tree))
-        fields_str = " ".join(fields_list)
 
         query_vars = []
         call_vars = []
@@ -322,9 +303,15 @@ class BaseCinnamon:
                 encoded_args[arg_name] = arg_value
 
         if is_paged:
-            fields_str += "pageInfo{endCursor hasNextPage} "
+            pydash.set_(fields_tree, "pageInfo.endCursor", QueryField("endCursor"))
+            pydash.set_(fields_tree, "pageInfo.hasNextPage", QueryField("hasNextPage"))
             query_vars.append("$after: String")
             call_vars.append("after: $after")
+
+        if fields_tree:
+            fields_list.append(self._field_tree_recursion("", fields_tree))
+
+        fields_str = " ".join(fields_list)
 
         return {
             "query": f"{query_type}({','.join(query_vars)}) {{ {api_call}({','.join(call_vars)}) {{ {fields_str} }} }}",
@@ -341,7 +328,7 @@ class BaseCinnamon:
         self.retry_count = 0
         return self._api(query, variables, headers, token)
 
-    def login(self, email, password) -> str:
+    def login(self, email: str, password: str) -> dict:
         result = self.api(
             query=str(
                 "mutation($input: UserLoginInput!) {"
@@ -354,7 +341,26 @@ class BaseCinnamon:
         )["data"]["login"]
         self.token = result["token"]
         self.refresh_token = result["refreshToken"]
-        return self.token
+        return result
+
+    def refresh_login(self, refresh_token: str = None) -> dict:
+        result = self._api(
+            """
+            mutation($input: RefreshTokenInput!) {
+                refreshLogin(input: $input) {
+                    token
+                    refreshToken
+                }
+            }
+            """,
+            variables={"input": {"refreshToken": refresh_token,}},
+        )["data"]["refreshLogin"]
+
+        if result["token"] and result["refreshToken"]:
+            self.token = result.token
+            self.refresh_token = result.refresh_token
+
+        return result
 
     def iterate_edges(
         self,
