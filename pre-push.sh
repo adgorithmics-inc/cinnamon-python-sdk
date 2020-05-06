@@ -11,9 +11,12 @@ if [ "x${files_with_nocommit}x" != "xx" ]; then
 fi
 
 git ls-files -z **\*.py | xargs --null flake8 --config=pep.cfg
+if [ "$?" -ne "0" ]; then exit 1; fi
 
 git ls-files -z **\*.py | xargs --null black --check
+if [ "$?" -ne "0" ]; then exit 1; fi
 
-./tests.sh
+python -m unittest
+if [ "$?" -ne "0" ]; then exit 1; fi
 
 exit 0

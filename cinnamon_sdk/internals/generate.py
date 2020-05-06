@@ -1,7 +1,6 @@
 import re
 import typing
 import itertools
-import black
 from enum import Enum
 from typing import List, Union
 
@@ -14,7 +13,6 @@ PRE_CAMEL_REPLACEMENTS = [("GCPX", "Gcpx")]
 ITERABLE_TO_TYPE_HINT = {
     list: "List",
 }
-BLACK_MODE = black.FileMode()
 MAX_COMPLEXITY = 3
 # camelCase as these queries come from the server
 EXCLUDE_QUERIES = [
@@ -373,7 +371,7 @@ class PythonCodeGenerator:
         all_object_names_list = [gql_object.name for gql_object in self.schema.objects]
         all_code += f"__all__ = {repr(all_object_names_list)}\n"
 
-        return black.format_str(all_code, mode=BLACK_MODE)
+        return all_code
 
     def fields_classes(self) -> str:
         all_code = ""
@@ -428,7 +426,7 @@ class PythonCodeGenerator:
         all_code += "\n"
         all_code += f"__all__ = {repr(all_object_names_list)}\n"
 
-        return black.format_str(all_code, mode=BLACK_MODE)
+        return all_code
 
     def input_object_classes(self,) -> str:
         all_code = ""
@@ -469,7 +467,7 @@ class PythonCodeGenerator:
         ]
         all_code += f"__all__ = {repr(all_object_names_list)}\n"
 
-        return black.format_str(all_code, mode=BLACK_MODE)
+        return all_code
 
     def enums(self) -> str:
         enums_code = ""
@@ -478,7 +476,7 @@ class PythonCodeGenerator:
             for field in enm:
                 enums_code += f"    {field.name} = {repr(field.value)}\n"
         enums_code += f"__all__ = {repr([enm.__name__ for enm in self.schema.enums])}\n"
-        return black.format_str(enums_code, mode=BLACK_MODE)
+        return enums_code
 
     def interfaces(self, interfaces: list) -> str:
         return ""
@@ -561,7 +559,7 @@ class PythonCodeGenerator:
         all_code += f"class {class_name}(BaseSyncCinnamon):\n"
         all_code += "    " + "\n    ".join(itertools.chain(*query_code))
 
-        return black.format_str(all_code, mode=BLACK_MODE)
+        return all_code
 
 
 def get_schema(url: str, email: str, password: str) -> SchemaReader:

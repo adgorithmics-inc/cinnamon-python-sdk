@@ -1,9 +1,14 @@
 from typing import Union, List, Any
 from datetime import datetime
-from .internals.base_classes import BaseCinnamonObject, BaseCinnamonEdgesObject, BaseCinnamonField
+from .internals.base_classes import (
+    BaseCinnamonObject,
+    BaseCinnamonEdgesObject,
+    BaseCinnamonField,
+)
 from .internals.constants import CinnamonUndefined
 from .internals import scalars
 from . import enums
+
 
 class CampaignTemplate(BaseCinnamonObject):
     class _API_FIELDS:

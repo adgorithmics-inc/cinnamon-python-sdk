@@ -1,6 +1,9 @@
 # flake8: noqa
 
 import os
+import black
+
+BLACK_MODE = black.FileMode()
 
 from cinnamon_sdk.internals.generate import PythonCodeGenerator, get_schema
 
@@ -16,56 +19,58 @@ generator = PythonCodeGenerator(
 print("Updating objects.py...")
 objects_filename = os.path.join("cinnamon_sdk", "objects.py")
 with open(objects_filename, mode="w") as f:
-    f.write("from typing import Union, List, Any\n")
-    f.write("from datetime import datetime\n")
-    f.write(
-        "from .internals.base_classes import BaseCinnamonObject, BaseCinnamonEdgesObject, BaseCinnamonField\n"
-    )
-    f.write("from .internals.constants import CinnamonUndefined\n")
-    f.write("from .internals import scalars\n")
-    f.write("from . import enums\n\n")
-    f.write(generator.object_classes())
+    objects_code = "from typing import Union, List, Any\n"
+    objects_code += "from datetime import datetime\n"
+    objects_code += "from .internals.base_classes import BaseCinnamonObject, BaseCinnamonEdgesObject, BaseCinnamonField\n"
+
+    objects_code += "from .internals.constants import CinnamonUndefined\n"
+    objects_code += "from .internals import scalars\n"
+    objects_code += "from . import enums\n\n"
+    objects_code += generator.object_classes()
+    f.write(black.format_str(objects_code, mode=BLACK_MODE))
 
 print("Updating fields.py...")
 fields_filename = os.path.join("cinnamon_sdk", "fields.py")
 with open(fields_filename, mode="w") as f:
-    f.write("from functools import lru_cache\n")
-    f.write("from .internals.base_classes import QueryFieldSet, QueryField\n\n")
-    f.write(generator.fields_classes())
+    fields_code = "from functools import lru_cache\n"
+    fields_code += "from .internals.base_classes import QueryFieldSet, QueryField\n\n"
+    fields_code += generator.fields_classes()
+    f.write(black.format_str(fields_code, mode=BLACK_MODE))
 
 print("Updating inputs.py...")
 inputs_filename = os.path.join("cinnamon_sdk", "inputs.py")
 with open(inputs_filename, mode="w") as f:
-    f.write("from typing import Union, List\n\n")
-    f.write(
+    inputs_code = "from typing import Union, List\n\n"
+    inputs_code += (
         "from .internals.base_classes import BaseCinnamonInput, BaseCinnamonField\n"
     )
-    f.write("from .internals.constants import CinnamonUndefined\n")
-    f.write("from .internals import scalars\n")
-    f.write("from . import enums\n\n")
-    f.write(generator.input_object_classes())
+    inputs_code += "from .internals.constants import CinnamonUndefined\n"
+    inputs_code += "from .internals import scalars\n"
+    inputs_code += "from . import enums\n\n"
+    inputs_code += generator.input_object_classes()
+    f.write(black.format_str(inputs_code, mode=BLACK_MODE))
 
 print("Updating enums.py...")
 enums_filename = os.path.join("cinnamon_sdk", "enums.py")
 with open(enums_filename, mode="w") as f:
-    f.write("from enum import Enum\n\n")
-    f.write(generator.enums())
+    enums_code = "from enum import Enum\n\n"
+    enums_code += generator.enums()
+    f.write(black.format_str(enums_code, mode=BLACK_MODE))
 
 print("Updating cinnamon.py...")
 functions_filename = os.path.join("cinnamon_sdk", "cinnamon.py")
 with open(functions_filename, mode="w") as f:
-    f.write("from typing import Union, List, Iterable\n")
-    f.write("from datetime import datetime\n")
-    f.write(
-        "from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField, QueryFieldSet, QueryField\n"
-    )
-    f.write("from .internals.constants import CinnamonUndefined\n")
-    f.write("from .internals import scalars\n")
-    f.write("from . import fields as fields_module\n")
-    f.write("from . import objects\n")
-    f.write("from . import inputs\n\n")
-    f.write(generator.api_class("Cinnamon"))
-    f.write("\n\n")
-    f.write("__all__ = ['Cinnamon']\n")
+    cinna_code = "from typing import Union, List, Iterable\n"
+    cinna_code += "from datetime import datetime\n"
+    cinna_code += "from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField, QueryFieldSet, QueryField\n"
+    cinna_code += "from .internals.constants import CinnamonUndefined\n"
+    cinna_code += "from .internals import scalars\n"
+    cinna_code += "from . import fields as fields_module\n"
+    cinna_code += "from . import objects\n"
+    cinna_code += "from . import inputs\n\n"
+    cinna_code += generator.api_class("Cinnamon")
+    cinna_code += "\n\n"
+    cinna_code += "__all__ = ['Cinnamon']\n"
+    f.write(black.format_str(cinna_code, mode=BLACK_MODE))
 
 print("Done.\n")

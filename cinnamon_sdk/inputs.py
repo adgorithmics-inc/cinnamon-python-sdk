@@ -5,6 +5,7 @@ from .internals.constants import CinnamonUndefined
 from .internals import scalars
 from . import enums
 
+
 class SortInput(BaseCinnamonInput):
     class _FIELDS:
         class field(BaseCinnamonField):

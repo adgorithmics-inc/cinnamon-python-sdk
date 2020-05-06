@@ -1,11 +1,17 @@
 from typing import Union, List, Iterable
 from datetime import datetime
-from .internals.base_classes import BaseSyncCinnamon, BaseCinnamonField, QueryFieldSet, QueryField
+from .internals.base_classes import (
+    BaseSyncCinnamon,
+    BaseCinnamonField,
+    QueryFieldSet,
+    QueryField,
+)
 from .internals.constants import CinnamonUndefined
 from .internals import scalars
 from . import fields as fields_module
 from . import objects
 from . import inputs
+
 
 class _ARGUMENT_LEGENDS:
     class campaign_template:
@@ -3638,4 +3644,4 @@ class Cinnamon(BaseSyncCinnamon):
         )
 
 
-__all__ = ['Cinnamon']
+__all__ = ["Cinnamon"]

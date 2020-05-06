@@ -1,6 +1,7 @@
 from functools import lru_cache
 from .internals.base_classes import QueryFieldSet, QueryField
 
+
 class _CampaignTemplateBase(QueryFieldSet):
     _sdk_default_fields = [
         QueryField("id"),

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Platform(Enum):
     facebook = "facebook"
     sandbox = "sandbox"
