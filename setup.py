@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cinnamon_sdk",
-    version="0.0.1",
+    version="0.0.2",
     author="Rob McAuley",
     author_email="rmcauley@adgorithmics.com",
     description="SDK for using the Cinnamon GraphQL API.",
@@ -18,4 +18,10 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires=[
+        "requests",
+        "pydash",
+        "pytz",
+        "python-dateutil",
+    ]
 )
