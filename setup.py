@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="cinnamon_sdk",
-    version="0.0.2",
+    version="0.0.3",
     author="Rob McAuley",
     author_email="rmcauley@adgorithmics.com",
     description="SDK for using the Cinnamon GraphQL API.",

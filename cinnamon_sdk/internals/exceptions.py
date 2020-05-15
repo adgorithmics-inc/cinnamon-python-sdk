@@ -1,6 +1,8 @@
+import pydash
 import re
 import json
 from requests import Response
+from typing import List
 
 from .json_codecs import CinnamonJSONEncoder
 
@@ -15,6 +17,7 @@ class CinnamonException(Exception):
     token: str = ""
     response: Response = Response()
     response_json: dict = {}
+    error_codes: List[str] = []
 
     def __init__(
         self,
@@ -32,8 +35,14 @@ class CinnamonException(Exception):
         self.token = token
         self.response = response
         self.response_json = None
+        self.error_codes = []
         try:
             self.response_json = response.json() if response else None
+            if isinstance(self.response_json, dict) and isinstance(self.response_json.get("errors"), list):
+                for error in self.response_json["errors"]:
+                    code = pydash.get(error, "extensions.code", None)
+                    if code is not None:
+                        self.error_codes.append(code)
         except ValueError:
             pass
 
